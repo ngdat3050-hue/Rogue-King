@@ -227,18 +227,18 @@ phoenix:{name:'Phượng Hoàng Plasma',cost:100000,hp:200,en:190,speed:290,dmg:
 };
 
 const races={
-  human:{name:'Người',costMin:5000¨00,tier:1,hp:1,en:1,speed:1,dmg:1,desc:'Chủng tộc cân bằng, dễ sử dụng.'},
-  fish:{name:'Cá',costMin:10000000,tier:1,hp:1.05,en:1.12,speed:1.03,dmg:1,desc:'Cơ động và nhiều năng lượng.'},
-  rabbit:{name:'Thỏ',costMin:20000000,tier:1,hp:.96,en:1.05,speed:1.15,dmg:1.03,desc:'Tốc độ di chuyển cao.'},
-  demon:{name:'Quỷ',costMin:1000000000,tier:2,hp:1.22,en:1.02,speed:1.05,dmg:1.22,desc:'Sát thương và HP cao.'},
-  angel:{name:'Thiên thần',costMin:2500000000,tier:2,hp:1.12,en:1.28,speed:1.08,dmg:1.15,desc:'Năng lượng dồi dào.'},
-  ghost:{name:'Ma',costMin:500000¨0000,tier:1,hp:.9,en:1.3,speed:1.1,dmg:1.08,desc:'Nhanh và giàu năng lượng.'},
-  spirit:{name:'Tinh linh',costMin:100000000000,tier:1,hp:1,en:1.2,speed:1.12,dmg:1.08,desc:'Cân bằng thiên về kỹ năng.'},
-  god:{name:'Thần',costMin:10000000000000,tier:3,hp:1.65,en:1.7,speed:1.22,dmg:1.55,desc:'Cấp sức mạnh thần cấp.'},
-  beastman:{name:'Nhân thú',costMin:1000000000000000,tier:3,hp:1.45,en:1.3,speed:1.35,dmg:1.42,desc:'Chủng tộc chiến đấu cực mạnh.'},
-  beastgod:{name:'Thần thú',costMin:100000000000000000,tier:2,hp:1.5,en:1.25,speed:1.25,dmg:1.5,desc:'Sức mạnh hoang dã.'},
-  dragon:{name:'Rồng',costMin:1000000000000000000000,tier:2,hp:1.8,en:1.35,speed:1.08,dmg:1.7,desc:'HP và sát thương cực cao.'},
-  master:{name:'Master of the World: Between Life and Death',costMin:10000000000000000000000000,tier:4,hp:3,en:3,speed:1.6,dmg:3,desc:'Chủng tộc tối thượng. Không thể mua bằng xu thông thường.'}
+  human:{name:'Người',costMin:5000000,tier:1,hp:1,en:1,speed:1,dmg:1,desc:'Chủng tộc cân bằng, dễ sử dụng.'},
+  fish:{name:'Cá',costMin:10000000,tier:1,hp:1.05,en:1.12,speed:1.03,dmg:1,desc:'Cơ động và nhiều năng lượng.'},
+  rabbit:{name:'Thỏ',costMin:20000000,tier:1,hp:.96,en:1.05,speed:1.15,dmg:1.03,desc:'Tốc độ di chuyển cao.'},
+  demon:{name:'Quỷ',costMin:100000000,tier:2,hp:1.22,en:1.02,speed:1.05,dmg:1.22,desc:'Sát thương và HP cao.'},
+  angel:{name:'Thiên thần',costMin:250000000,tier:2,hp:1.12,en:1.28,speed:1.08,dmg:1.15,desc:'Năng lượng dồi dào.'},
+  ghost:{name:'Ma',costMin:500000000,tier:1,hp:.9,en:1.3,speed:1.1,dmg:1.08,desc:'Nhanh và giàu năng lượng.'},
+  spirit:{name:'Tinh linh',costMin:1000000000,tier:1,hp:1,en:1.2,speed:1.12,dmg:1.08,desc:'Cân bằng thiên về kỹ năng.'},
+  god:{name:'Thần',costMin:10000000000,tier:3,hp:1.65,en:1.7,speed:1.22,dmg:1.55,desc:'Cấp sức mạnh thần cấp.'},
+  beastman:{name:'Nhân thú',costMin:100000000000,tier:3,hp:1.45,en:1.3,speed:1.35,dmg:1.42,desc:'Chủng tộc chiến đấu cực mạnh.'},
+  beastgod:{name:'Thần thú',costMin:1000000000000,tier:2,hp:1.5,en:1.25,speed:1.25,dmg:1.5,desc:'Sức mạnh hoang dã.'},
+  dragon:{name:'Rồng',costMin:100000000000000,tier:2,hp:1.8,en:1.35,speed:1.08,dmg:1.7,desc:'HP và sát thương cực cao.'},
+  master:{name:'Master of the World: Between Life and Death',costMin:1000000000000000000000000000000,tier:4,hp:3,en:3,speed:1.6,dmg:3,desc:'Chủng tộc tối thượng. Không thể mua bằng xu thông thường.'}
 };
 const weapons={
  pulse:{name:'Súng Xung',cost:0,dmg:18,rate:5.5,speed:660,spread:.04,color:'#8be9ff',energy:2,shots:1},
@@ -288,15 +288,25 @@ function adminLock(){adminUnlocked=false;}
 
 function accountMessage(t,bad=false){const e=$('accountMsg');e.textContent=t;e.style.color=bad?'#ff7185':'#7cf29a'}
 function showLogin(){
- $('loginScreen').style.display='flex';ui.start.style.display='none';
+ $('loginScreen').style.display='flex';
+ ui.start.style.display='none';
  $('adminBtn').style.display='none';
  adminLock();
+ currentAccount=null;
+ $('accountUser').value='';
+ $('accountPass').value='';
+ $('accountPass2').value='';
+ switchRegister(false);
 }
 function loginUser(){
  const typedU=$('accountUser').value.trim(),pw=$('accountPass').value;
  const a=accounts();
+ if(!typedU||!pw){accountMessage('Hãy nhập đủ tài khoản và mật khẩu.',true);return}
+ if(!/^[A-Za-z0-9_ -]{2,24}$/.test(typedU)){
+   accountMessage('Tên tài khoản chỉ được dùng chữ, số, khoảng trắng, _ và dài 2-24 ký tự.',true);
+   return;
+ }
  const u=Object.keys(a).find(k=>k.toLowerCase()===typedU.toLowerCase())||typedU;
- if(!u||!pw){accountMessage('Hãy nhập đủ tài khoản và mật khẩu.',true);return}
  if(isRegister){
   if(pw.length<8){accountMessage('Mật khẩu phải có ít nhất 8 ký tự.',true);return}
   if(pw!==$('accountPass2').value){accountMessage('Hai mật khẩu không trùng nhau.',true);return}
@@ -314,9 +324,37 @@ function switchRegister(on){
  $('loginTab').className=on?'':'primary';$('regTab').className=on?'primary':'';
  accountMessage('');
 }
-function load(){try{const s=JSON.parse(localStorage.getItem('rk500_save')||'null');if(s)save={...save,...s};}catch(e){} sanitize();}
-function persist(){localStorage.setItem('rk500_save',JSON.stringify(save));toast('Đã lưu tiến trình');}
-function sanitize(){save.room=clamp(save.room|0,1,300);save.stage=clamp(save.stage|0,1,30);save.level=clamp(save.level|0,1,1000000000);if(!Array.isArray(save.ownedRaces))save.ownedRaces=['human'];save.race=save.race||'human';for(const k of ['ownedClasses','ownedWeapons','ownedArmors','ownedHelmets','ownedPants','ownedBoots','ownedUtils'])if(!Array.isArray(save[k]))save[k]=[];save.pants=save.pants||'none';save.boots=save.boots||'none';}
+function accountSaveKey(){
+  const u=(currentAccount&&currentAccount.user)||'guest';
+  return 'rk500_save_'+u.toLowerCase();
+}
+function load(){
+  try{
+    const key=currentAccount?accountSaveKey():'rk500_save';
+    const s=JSON.parse(localStorage.getItem(key)||'null');
+    if(s)save={...save,...s};
+  }catch(e){}
+  sanitize();
+}
+function persist(){
+  try{
+    localStorage.setItem(accountSaveKey(),JSON.stringify(save));
+    toast('Đã lưu tiến trình');
+  }catch(e){
+    toast('Không thể lưu tiến trình trên trình duyệt');
+    console.error('Rogue Knight save error:',e);
+  }
+}
+function sanitize(){save.room=clamp(save.room|0,1,300);save.stage=clamp(save.stage|0,1,30);save.level=clamp(save.level|0,1,1000000000);if(!Array.isArray(save.ownedRaces))save.ownedRaces=['human'];save.race=save.race||'human';for(const k of ['ownedClasses','ownedWeapons','ownedArmors','ownedHelmets','ownedPants','ownedBoots','ownedUtils'])if(!Array.isArray(save[k]))save[k]=[];save.pants=save.pants||'none';save.boots=save.boots||'none';save.util=save.util||'none';
+if(!classes[save.cls])save.cls='rookie';
+if(!races[save.race])save.race='human';
+if(!weapons[save.weapon])save.weapon='pulse';
+if(!armors[save.armor])save.armor='none';
+if(!helmets[save.helmet])save.helmet='none';
+if(!pants[save.pants])save.pants='none';
+if(!boots[save.boots])save.boots='none';
+if(!utils[save.util])save.util='none';
+}
 function xpNeed(lv){if(lv>=1000000000)return Infinity;const x=Math.min(700,Math.log1p(lv)*0.055);return Math.max(100,Math.floor(120*Math.exp(x)*(1+Math.log10(lv+1))));}
 function num(n){if(!isFinite(n))return 'MAX';if(n<1e6)return Math.floor(n).toLocaleString('vi-VN');return n.toExponential(2).replace('+','');}
 let player,bullets=[],enemyBullets=[],enemies=[],particles=[],pickups=[],obstacles=[];
@@ -335,7 +373,7 @@ function enemyStats(type){const d=difficulty();let hp=44*d,dmg=9*d,speed=80+Math
 function spawnEnemy(delay=0){const types=['grunt','charger','tank','sniper'];const type=types[Math.min(types.length-1,Math.floor(Math.random()*(1+difficulty()/6)))];const s=enemyStats(type),side=Math.floor(Math.random()*4);let x,y;if(side===0){x=40;y=rnd(60,H*.6)}else if(side===1){x=W-40;y=rnd(60,H*.6)}else{x=rnd(60,W-60);y=55}enemies.push({x,y,...s,type,fire:rnd(.2,1.2),alive:true,delay,slow:0});}
 function spawnBoss(){const d=difficulty();const final=save.room===300&&save.stage===30;const hp=(final?1100:760)*d;enemies.push({x:W/2,y:130,r:final?42:36,hp,maxHp:hp,dmg:18*d,speed:58+Math.min(55,d*3),shoot:1.1,fire:.6,alive:true,boss:true,phase:0,type:final?'impossible':'warden',delay:0});toast(final?'BOSS CUỐI PHÒNG!':'BOSS GIỮA PHÒNG!');}
 function toast(t){ui.toast.textContent=t;ui.toast.style.opacity=1;clearTimeout(toast.t);toast.t=setTimeout(()=>ui.toast.style.opacity=0,1400);}
-function updateUI(){const need=xpNeed(save.level);ui.room.textContent=save.room+'/300';ui.stage.textContent=save.stage+'/30';ui.lv.textContent=save.level;ui.coin.textContent=num(save.coins);ui.cls.textContent=classes[save.cls].name;ui.race.textContent=races[save.race||'human'].name;ui.weapon.textContent=weapons[save.weapon].name;if(player){ui.hp.style.width=(player.hp/player.maxHp*100)+'%';ui.en.style.width=(player.en/player.maxEn*100)+'%';ui.xp.style.width=(need===Infinity?100:Math.min(100,save.xp/need*100))+'%';}}
+function updateUI(){const need=xpNeed(save.level);ui.room.textContent=save.room+'/300';ui.stage.textContent=save.stage+'/30';ui.lv.textContent=save.level;ui.coin.textContent=num(save.coins);ui.cls.textContent=(classes[save.cls]||classes.rookie).name;ui.race.textContent=(races[save.race||'human']||races.human).name;ui.weapon.textContent=(weapons[save.weapon]||weapons.pulse).name;if(player){ui.hp.style.width=(player.hp/player.maxHp*100)+'%';ui.en.style.width=(player.en/player.maxEn*100)+'%';ui.xp.style.width=(need===Infinity?100:Math.min(100,save.xp/need*100))+'%';}}
 function addXp(v){if(save.level>=1000000000)return;save.xp+=v;let need=xpNeed(save.level);let n=0;while(save.xp>=need&&save.level<1000000000&&n<30){save.xp-=need;save.level++;n++;need=xpNeed(save.level);player.hp=Math.min(player.maxHp,player.hp+15);player.en=player.maxEn;}if(n)toast('LÊN CẤP '+save.level+'!');}
 function collideRectCircle(o,x,y,r){const nx=clamp(x,o.x-o.w/2,o.x+o.w/2),ny=clamp(y,o.y-o.h/2,o.y+o.h/2);return (x-nx)**2+(y-ny)**2<r*r;}
 function moveEntity(e,dx,dy){let nx=clamp(e.x+dx,e.r+8,W-e.r-8),ny=clamp(e.y+dy,e.r+45,H-e.r-8);for(const o of obstacles){if(collideRectCircle(o,nx,e.y,e.r))nx=e.x;if(collideRectCircle(o,e.x,ny,e.r))ny=e.y;}e.x=nx;e.y=ny;}
@@ -531,15 +569,22 @@ function raceMenu(){
   s+='<p class="sub">Mỗi chủng tộc có khoảng giá xu LOL riêng. <b>Nhân thú</b> được xếp theo bậc 3 theo quy tắc 8,9 ở yêu cầu của bạn.</p><div class="raceLegend"><span class="raceTier">Bậc 1: 1M → 100M</span><span class="raceTier">Bậc 2: 1B → 100B</span><span class="raceTier">Bậc 3: 100T → 10E18</span><span class="raceTier">Bậc 4: 10^30 → 10^42</span></div><div class="grid">';
   for(const id of order){
     const r=races[id],own=(save.ownedRaces||['human']).includes(id),eq=save.race===id;
-    s+=`<div class="card raceCard ${eq?'equipped':''} ${own?'':'locked'}"><h3>${r.name}</h3><p class="req">${r.desc}</p><p class="small">HP ×${r.hp} • NL ×${r.en} • Tốc ×${r.speed} • Dame ×${r.dmg}</p><div class="price">${num(r.costMin)} → ${num(r.costMax)} xu LOL</div><div class="row"><span class="tag">${eq?'Đang dùng':own?'Đã mở':(id==='master'?'Không thể mua':'Mở khóa')}</span><button onclick="RK.raceBuy('${id}')">${eq?'Đang dùng':own?'Chọn':(id==='master'?'Không thể mua':'Mở khóa')}</button></div></div>`;
+    s+=`<div class="card raceCard ${eq?'equipped':''} ${own?'':'locked'}"><h3>${r.name}</h3><p class="req">${r.desc}</p><p class="small">HP ×${r.hp} • NL ×${r.en} • Tốc ×${r.speed} • Dame ×${r.dmg}</p><div class="price">${num(r.costMin)} xu LOL</div><div class="row"><span class="tag">${eq?'Đang dùng':own?'Đã mở':(id==='master'?'Không thể mua':'Mở khóa')}</span><button onclick="RK.raceBuy('${id}')">${eq?'Đang dùng':own?'Chọn':(id==='master'?'Không thể mua':'Mở khóa')}</button></div></div>`;
   }
   s+='</div>';
   openModal(s);
 }
 function lobby(){
- adminLock();
-  paused=true;running=false;ui.modal.style.display='none';ui.start.style.display='flex';
-  toast('Đã trở về sảnh chờ');
+  persist();
+  adminLock();
+  paused=true;
+  running=false;
+  ui.modal.style.display='none';
+  ui.start.style.display='flex';
+  currentAccount=null;
+  $('adminBtn').style.display='none';
+  showLogin();
+  toast('Đã đăng xuất và trở về màn hình đăng nhập');
 }
 function equipMenu(){openModal(`<div class="row"><h2>🎒 Trang bị hiện tại</h2><button onclick="RK.close()">✕</button></div><div class="grid"><div class="card"><h3>Vũ khí</h3><b>${weapons[save.weapon].name}</b></div><div class="card"><h3>Áo giáp</h3><b>${armors[save.armor].name}</b></div><div class="card"><h3>Mũ</h3><b>${helmets[save.helmet].name}</b></div><div class="card"><h3>Quần</h3><b>${pants[save.pants].name}</b></div><div class="card"><h3>Giày</h3><b>${boots[save.boots].name}</b></div><div class="card"><h3>Phụ kiện</h3><b>${utils[save.util].name}</b></div></div><p class="sub" style="margin-top:12px">Đổi đồ trong Cửa hàng. Trang bị đã mua không bị mất khi gục.</p>`)}
 
@@ -729,7 +774,7 @@ $('shopBtn').onclick=shop;$('classBtn').onclick=classMenu;$('raceBtn').onclick=r
   canvas.addEventListener('touchmove',e=>{e.preventDefault();const t=e.touches[0],r=canvas.getBoundingClientRect();mouse.x=t.clientX-r.left;mouse.y=t.clientY-r.top},{passive:false});
 
   $('helpBtn').onclick=()=>openModal(`<h2>🎮 Cách chơi</h2><p class="sub">WASD di chuyển, chuột để ngắm, giữ click trái để bắn. Q lướt né đạn, E dùng kỹ năng class. B mở shop, C chọn class. Dọn sạch quái để tự sang phó bản tiếp theo.</p><p class="sub">Mỗi phòng có 10 phó bản. Phó bản 5 và 10 có boss. Tổng cộng 300 phòng = 9.000 phó bản. Level tối đa 1,000,000,000, EXP yêu cầu tăng theo cấp số nhân.</p><button onclick="RK.close()">Đã hiểu</button>`);
-$('newBtn').onclick=()=>{if(confirm('Chơi mới sẽ ghi đè tiến trình hiện tại. Tiếp tục?')){localStorage.removeItem('rk500_save');save={room:1,stage:1,level:1,xp:0,coins:400,cls:'rookie',race:'human',weapon:'pulse',armor:'none',helmet:'none',pants:'none',boots:'none',util:'none',ownedClasses:['rookie'],ownedWeapons:['pulse'],ownedArmors:['none'],ownedHelmets:['none'],ownedPants:['none'],ownedBoots:['none'],ownedUtils:['none']};persist();ui.start.style.display='none';running=true;paused=false;buildRoom();}};
+$('newBtn').onclick=()=>{if(confirm('Chơi mới sẽ ghi đè tiến trình hiện tại. Tiếp tục?')){localStorage.removeItem(accountSaveKey());save={room:1,stage:1,level:1,xp:0,coins:400,cls:'rookie',race:'human',weapon:'pulse',armor:'none',helmet:'none',pants:'none',boots:'none',util:'none',ownedClasses:['rookie'],ownedWeapons:['pulse'],ownedArmors:['none'],ownedHelmets:['none'],ownedPants:['none'],ownedBoots:['none'],ownedUtils:['none']};persist();ui.start.style.display='none';running=true;paused=false;buildRoom();}};
 $('continueBtn').onclick=()=>{load();ui.start.style.display='none';running=true;paused=false;buildRoom();};
 initAccounts();
 $('loginTab').onclick=()=>switchRegister(false);$('regTab').onclick=()=>switchRegister(true);$('accountSubmit').onclick=loginUser;
