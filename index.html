@@ -21,7 +21,7 @@
   canvas{display:block;width:100%;height:100%;cursor:crosshair;image-rendering:auto}
   #c{background:radial-gradient(circle at 50% 45%,#182746 0,#0d1525 38%,#070b14 100%)}
   #fxOverlay,#maxLight,#maxWeather{background:transparent!important;cursor:default}
-  #hud{position:absolute;inset:0;pointer-events:none}
+  #hud{position:absolute;inset:0;pointer-events:none;z-index:20!important}
   #bars{position:absolute;left:14px;top:14px;width:min(330px,45vw)}
   .bar{height:16px;border-radius:10px;background:#060a13CC;border:1px solid #53698f;overflow:hidden;margin-bottom:7px;box-shadow:0 3px 12px #000A,inset 0 1px #ffffff12}.fill{box-shadow:0 0 12px currentColor}
   .fill{height:100%;transition:width .12s}.hp{background:linear-gradient(90deg,#ff526d,#ff8a68)}.energy{background:linear-gradient(90deg,#4bb7ff,#7fe6ff)}.xp{background:linear-gradient(90deg,#a96cff,#f07aff)}
@@ -127,6 +127,9 @@ body{
 }
 #c{position:relative;z-index:1}
 
+
+.statLabel{display:flex;justify-content:space-between;align-items:center;color:#eef5ff;font:800 11px system-ui,sans-serif;text-shadow:0 2px 5px #000;margin:0 2px 3px}.statLabel b{font-variant-numeric:tabular-nums;color:#fff}.bar{position:relative;z-index:21}.fill{position:relative;z-index:22}
+#bars{z-index:21!important;filter:none!important}
 </style>
 
 <style id="max-graphics-css">
@@ -137,7 +140,7 @@ body{
  position:absolute;inset:0;width:100%;height:100%;
  pointer-events:none;z-index:4
 }
-#maxLight{mix-blend-mode:screen}
+#maxLight{mix-blend-mode:normal}
 #maxWeather{z-index:5}
 .max-ui-glow{
  box-shadow:0 0 24px rgba(75,180,255,.12),inset 0 1px 0 rgba(255,255,255,.05)
@@ -147,6 +150,21 @@ body{
  50%{box-shadow:0 0 28px rgba(80,190,255,.2)}
 }
 #topbar{animation:maxPulse 4s ease-in-out infinite}
+
+/* ===== PERFORMANCE MODE ===== */
+#hud, #topHud, .hud, .status, .stats {
+  contain: layout paint;
+}
+canvas {
+  image-rendering: auto;
+}
+#fxOverlay, #maxLight, #maxWeather {
+  opacity: .65;
+}
+/* Giảm hiệu ứng tốn GPU nhưng vẫn giữ gameplay/HUD */
+#fxOverlay, #maxLight {
+  mix-blend-mode: normal !important;
+}
 </style>
 
 </head>
@@ -212,7 +230,7 @@ body{
 'use strict';
 const canvas=document.getElementById('c'),ctx=canvas.getContext('2d',{alpha:false});
 const $=id=>document.getElementById(id);
-const ui={room:$('roomTxt'),stage:$('stageTxt'),lv:$('lvTxt'),coin:$('coinTxt'),cls:$('classTxt'),race:$('raceTxt'),weapon:$('weaponTxt'),hp:$('hpBar'),en:$('enBar'),xp:$('xpBar'),toast:$('toast'),modal:$('modal'),panel:$('panel'),start:$('startScreen')};
+const ui={room:$('roomTxt'),stage:$('stageTxt'),lv:$('lvTxt'),coin:$('coinTxt'),cls:$('classTxt'),race:$('raceTxt'),weapon:$('weaponTxt'),hp:$('hpBar'),en:$('enBar'),xp:$('xpBar'),hpText:$('hpText'),enText:$('enText'),xpText:$('xpText'),toast:$('toast'),modal:$('modal'),panel:$('panel'),start:$('startScreen')};
 let W=1280,H=720,dpr=1,last=performance.now(),running=false,paused=false,roomCleared=false,spawnTimer=0;
 const keys={},mouse={x:0,y:0,down:false};
 const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
@@ -426,7 +444,7 @@ function enemyStats(type){const d=difficulty();let hp=44*d,dmg=9*d,speed=80+Math
 function spawnEnemy(delay=0){const types=['grunt','charger','tank','sniper'];const type=types[Math.min(types.length-1,Math.floor(Math.random()*(1+difficulty()/6)))];const s=enemyStats(type),side=Math.floor(Math.random()*4);let x,y;if(side===0){x=40;y=rnd(60,H*.6)}else if(side===1){x=W-40;y=rnd(60,H*.6)}else{x=rnd(60,W-60);y=55}enemies.push({x,y,...s,type,fire:rnd(.2,1.2),alive:true,delay,slow:0});}
 function spawnBoss(){const d=difficulty();const final=save.room===300&&save.stage===30;const hp=(final?1100:760)*d;enemies.push({x:W/2,y:130,r:final?42:36,hp,maxHp:hp,dmg:18*d,speed:58+Math.min(55,d*3),shoot:1.1,fire:.6,alive:true,boss:true,phase:0,type:final?'impossible':'warden',delay:0});toast(final?'BOSS CUỐI PHÒNG!':'BOSS GIỮA PHÒNG!');}
 function toast(t){ui.toast.textContent=t;ui.toast.style.opacity=1;clearTimeout(toast.t);toast.t=setTimeout(()=>ui.toast.style.opacity=0,1400);}
-function updateUI(){const need=xpNeed(save.level);ui.room.textContent=save.room+'/300';ui.stage.textContent=save.stage+'/30';ui.lv.textContent=save.level;ui.coin.textContent=num(save.coins);ui.cls.textContent=(classes[save.cls]||classes.rookie).name;ui.race.textContent=(races[save.race||'human']||races.human).name;ui.weapon.textContent=(weapons[save.weapon]||weapons.pulse).name;if(player){ui.hp.style.width=(player.hp/player.maxHp*100)+'%';ui.en.style.width=(player.en/player.maxEn*100)+'%';ui.xp.style.width=(need===Infinity?100:Math.min(100,save.xp/need*100))+'%';}}
+function updateUI(){const need=xpNeed(save.level);ui.room.textContent=save.room+'/300';ui.stage.textContent=save.stage+'/30';ui.lv.textContent=save.level;ui.coin.textContent=num(save.coins);ui.cls.textContent=(classes[save.cls]||classes.rookie).name;ui.race.textContent=(races[save.race||'human']||races.human).name;ui.weapon.textContent=(weapons[save.weapon]||weapons.pulse).name;if(player){const hp=clamp(player.hp/player.maxHp*100,0,100),en=clamp(player.en/player.maxEn*100,0,100),xp=need===Infinity?100:clamp(save.xp/need*100,0,100);ui.hp.style.width=hp+'%';ui.en.style.width=en+'%';ui.xp.style.width=xp+'%';if(ui.hpText)ui.hpText.textContent=Math.round(hp)+'%';if(ui.enText)ui.enText.textContent=Math.round(en)+'%';if(ui.xpText)ui.xpText.textContent=Math.round(xp)+'%';}}
 function addXp(v){if(save.level>=1000000000)return;save.xp+=v;let need=xpNeed(save.level);let n=0;while(save.xp>=need&&save.level<1000000000&&n<30){save.xp-=need;save.level++;n++;need=xpNeed(save.level);player.hp=Math.min(player.maxHp,player.hp+15);player.en=player.maxEn;}if(n)toast('LÊN CẤP '+save.level+'!');}
 function collideRectCircle(o,x,y,r){const nx=clamp(x,o.x-o.w/2,o.x+o.w/2),ny=clamp(y,o.y-o.h/2,o.y+o.h/2);return (x-nx)**2+(y-ny)**2<r*r;}
 function moveEntity(e,dx,dy){let nx=clamp(e.x+dx,e.r+8,W-e.r-8),ny=clamp(e.y+dy,e.r+45,H-e.r-8);for(const o of obstacles){if(collideRectCircle(o,nx,e.y,e.r))nx=e.x;if(collideRectCircle(o,e.x,ny,e.r))ny=e.y;}e.x=nx;e.y=ny;}
@@ -479,7 +497,7 @@ function draw(){
  ctx.fillStyle=base; ctx.fillRect(0,0,W,H);
 
  // Soft atmospheric light pools
- for(let i=0;i<4;i++){
+ for(let i=0;i<2;i++){
    const px=W*(.18+i*.23)+Math.sin(t*(.22+i*.07))*70;
    const py=H*(.24+(i%2)*.42)+Math.cos(t*(.19+i*.05))*35;
    const r=170+i*45;
@@ -499,7 +517,7 @@ function draw(){
 
  // Floating dust / stars, deterministic so no allocations each frame
  ctx.save();
- for(let i=0;i<65;i++){
+ for(let i=0;i<28;i++){
    const x=(i*97.37)%W;
    const y=(i*53.19+t*(8+(i%4)*3))%H;
    const a=.18+.18*Math.sin(t*1.4+i);
@@ -523,7 +541,7 @@ function draw(){
 
  // Obstacles with depth, rim light and soft shadow
  for(const o of obstacles){
-   ctx.save();ctx.shadowBlur=18;ctx.shadowColor='#000A';ctx.fillStyle='#0a0f1c';
+   ctx.save();ctx.shadowBlur=6;ctx.shadowColor='#0006';ctx.fillStyle='#0a0f1c';
    ctx.fillRect(o.x-o.w/2+5,o.y-o.h/2+8,o.w,o.h);
    const og=ctx.createLinearGradient(o.x-o.w/2,o.y-o.h/2,o.x+o.w/2,o.y+o.h/2);
    og.addColorStop(0,'#344765');og.addColorStop(.5,'#202e47');og.addColorStop(1,'#121b2d');
@@ -578,9 +596,9 @@ function draw(){
  // Player with glow, ring and direction indicator
  if(player){
    ctx.save();ctx.translate(player.x,player.y);
-   const a=Math.atan2(mouse.y-player.y,mouse.x-player.x);ctx.rotate(a);
+   const rawA=Math.atan2(mouse.y-player.y,mouse.x-player.x);const a=Math.round(rawA/(Math.PI/4))*(Math.PI/4);ctx.rotate(a);
    ctx.globalAlpha=player.stealth>0?.45:1;
-   ctx.shadowBlur=26;ctx.shadowColor=player.shield>0?'#7fe6ff':'#dce9ff';
+   ctx.shadowBlur=10;ctx.shadowColor=player.shield>0?'#7fe6ff':'#dce9ff';
    const pg=ctx.createRadialGradient(-5,-5,2,0,0,player.r);
    pg.addColorStop(0,'#ffffff');pg.addColorStop(.45,player.shield>0?'#9cecff':'#d9e5f5');pg.addColorStop(1,'#7385a4');
    ctx.fillStyle=pg;ctx.beginPath();ctx.arc(0,0,player.r,0,Math.PI*2);ctx.fill();
@@ -1099,3 +1117,12 @@ load();updateUI();showLogin();
 
 </body>
 </html>
+
+<script>
+/* Performance guard: khi tab bị ẩn thì không render liên tục. */
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden){
+    try { paused = true; } catch(e) {}
+  }
+});
+</script>
