@@ -8,8 +8,9 @@
   :root{--bg:#0f1220;--panel:#171b2c;--panel2:#20263b;--text:#eef2ff;--muted:#aab2d5;--accent:#7fe6ff;--gold:#ffd166;--danger:#ff5d73;--good:#7cf29a}
   *{box-sizing:border-box}html,body{margin:0;height:100%;background:#090b13;color:var(--text);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;overflow:hidden}
   #wrap{height:100%;display:grid;grid-template-rows:auto 1fr auto}
-  #top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 12px;background:linear-gradient(180deg,#171b2d,#111526);border-bottom:1px solid #2c3550;box-shadow:0 4px 20px #0008;z-index:3}
-  .pill{background:#20263b;border:1px solid #384463;border-radius:999px;padding:6px 10px;font-weight:800;font-size:13px;white-space:nowrap}
+  #top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:9px 12px;background:linear-gradient(180deg,#18243bEE,#0c1323F2);border-bottom:1px solid #5a78a8;box-shadow:0 5px 28px #000B,0 1px 0 #8fe8ff22 inset;z-index:3;backdrop-filter:blur(8px)}
+  #top:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#76e7ff,#9d7cff,#76e7ff,transparent);opacity:.8}
+  .pill{background:linear-gradient(180deg,#263653E8,#17233AE8);border:1px solid #4e6388;border-radius:999px;padding:6px 10px;font-weight:850;font-size:13px;white-space:nowrap;box-shadow:0 3px 14px #0007,inset 0 1px #ffffff18;transition:.2s}.pill:hover{transform:translateY(-1px);border-color:#78dfff;box-shadow:0 5px 18px #0009,0 0 12px #6de6ff22}
   .pill b{color:var(--accent)} .gold{color:var(--gold)!important}.red{color:var(--danger)!important}.green{color:var(--good)!important}
   #gamebox{position:relative;min-height:0}
   canvas{display:block;width:100%;height:100%;background:
@@ -17,18 +18,18 @@ radial-gradient(circle at 50% 45%,#182746 0,#0d1525 38%,#070b14 100%);
 cursor:crosshair;image-rendering:auto}
   #hud{position:absolute;inset:0;pointer-events:none}
   #bars{position:absolute;left:14px;top:14px;width:min(330px,45vw)}
-  .bar{height:15px;border-radius:10px;background:#090b12;border:1px solid #485373;overflow:hidden;margin-bottom:6px;box-shadow:0 2px 6px #0008}
+  .bar{height:16px;border-radius:10px;background:#060a13CC;border:1px solid #53698f;overflow:hidden;margin-bottom:7px;box-shadow:0 3px 12px #000A,inset 0 1px #ffffff12}.fill{box-shadow:0 0 12px currentColor}
   .fill{height:100%;transition:width .12s}.hp{background:linear-gradient(90deg,#ff526d,#ff8a68)}.energy{background:linear-gradient(90deg,#4bb7ff,#7fe6ff)}.xp{background:linear-gradient(90deg,#a96cff,#f07aff)}
-  #hint{position:absolute;left:50%;top:16px;transform:translateX(-50%);font-weight:900;text-shadow:0 2px 8px #000;background:#0007;border:1px solid #ffffff22;border-radius:10px;padding:6px 10px;opacity:.95}
+  #hint{position:absolute;left:50%;top:16px;transform:translateX(-50%);font-weight:900;text-shadow:0 2px 8px #000;background:#07101CCC;border:1px solid #7fe6ff33;border-radius:12px;padding:7px 12px;opacity:.96;box-shadow:0 8px 28px #0008,0 0 20px #59dfff12;backdrop-filter:blur(6px)}
   #toast{position:absolute;left:50%;bottom:75px;transform:translateX(-50%);background:#101624ee;border:1px solid #405075;border-radius:12px;padding:10px 14px;font-weight:900;opacity:0;transition:.2s;box-shadow:0 8px 30px #0008}
-  #bottom{display:flex;gap:8px;align-items:center;padding:8px 10px;background:#111526;border-top:1px solid #2c3550;overflow-x:auto}
-  button{appearance:none;border:0;color:#eef2ff;background:#29324a;border:1px solid #425273;border-radius:9px;padding:8px 11px;font-weight:900;cursor:pointer;box-shadow:0 3px 0 #111727}
+  #bottom{display:flex;gap:8px;align-items:center;padding:9px 10px;background:linear-gradient(180deg,#111b2e,#0a101d);border-top:1px solid #476083;overflow-x:auto;box-shadow:0 -8px 28px #0008}
+  button{appearance:none;border:0;color:#eef2ff;background:linear-gradient(180deg,#344462,#222f48);border:1px solid #60789e;border-radius:10px;padding:8px 11px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #111727,0 6px 18px #0005;transition:.16s}button:hover{filter:brightness(1.16);transform:translateY(-1px);box-shadow:0 5px 0 #111727,0 9px 24px #0007}
   button:hover{filter:brightness(1.15)}button:active{transform:translateY(2px);box-shadow:0 1px 0 #111727}.primary{background:#1f7082}.danger{background:#7b2e3d}.goldbtn{background:#7b6226}
   #modal{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#060814d9;z-index:5;padding:18px}
   #panel{width:min(1080px,96vw);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#1d2438,#121827);border:1px solid #465473;border-radius:18px;box-shadow:0 20px 70px #000c;padding:18px}
   #panel h2{margin:0 0 8px}.sub{color:var(--muted);margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.card{background:linear-gradient(145deg,#202b44,#151c30);border:1px solid #465b82;border-radius:14px;padding:13px;box-shadow:inset 0 1px #ffffff10,0 8px 25px #0005;transition:.15s}.card:hover{transform:translateY(-2px);border-color:#6f9cff;box-shadow:0 10px 30px #0007,0 0 18px #62d8ff18}.card h3{margin:0 0 6px}.small{font-size:12px;color:#aeb7d8}.row{display:flex;gap:8px;align-items:center;justify-content:space-between}.tag{font-size:11px;border:1px solid #596988;border-radius:999px;padding:3px 7px;color:#d5dcf8}.equipped{outline:2px solid #7fe6ff}.locked{opacity:.62}
   #startScreen{position:absolute;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,#1b3150,#070910 70%);padding:18px}
-  .startPanel{width:min(980px,96vw);background:linear-gradient(145deg,#151d31ee,#0d1321ee);background:#141a29ee;border:1px solid #405173;border-radius:20px;padding:22px;box-shadow:0 20px 80px #000c}.startPanel h1{font-size:clamp(30px,6vw,64px);margin:0;letter-spacing:2px}.logoAccent{color:#7fe6ff;text-shadow:0 0 22px #2dc8ff88}.startPanel p{color:#b9c4e7;line-height:1.5}.keys{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.key{padding:5px 8px;background:#242d44;border:1px solid #465675;border-radius:7px;font-weight:900}.startActions{display:flex;gap:10px;flex-wrap:wrap}.big{font-size:16px;padding:11px 16px}
+  .startPanel{width:min(980px,96vw);background:linear-gradient(145deg,#17243CF2,#0b1220F4);border:1px solid #5d78a3;border-radius:24px;padding:24px;box-shadow:0 25px 100px #000D,0 0 45px #55dfff12;backdrop-filter:blur(12px);position:relative;overflow:hidden}.startPanel:after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,#73e8ff12,transparent,#9d7cff12,transparent);animation:panelGlow 12s linear infinite;pointer-events:none}@keyframes panelGlow{to{transform:rotate(360deg)}}.startPanel h1{font-size:clamp(30px,6vw,64px);margin:0;letter-spacing:2px}.logoAccent{color:#7fe6ff;text-shadow:0 0 22px #2dc8ff88}.startPanel p{color:#b9c4e7;line-height:1.5}.keys{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.key{padding:5px 8px;background:#242d44;border:1px solid #465675;border-radius:7px;font-weight:900}.startActions{display:flex;gap:10px;flex-wrap:wrap}.big{font-size:16px;padding:11px 16px}
   @media(max-width:700px){#top{gap:5px;padding:6px}.pill{font-size:11px;padding:5px 8px}#bars{width:58vw}.big{font-size:14px}}
 #adminConsole{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.adminInput{width:100%;padding:12px;border-radius:10px;border:1px solid #52668e;background:#080d18;color:#eaf3ff;font:inherit;outline:none}.adminInput:focus{border-color:#75e6ff;box-shadow:0 0 18px #75e6ff22}.cmdlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:7px;margin-top:10px}.cmd{padding:8px 10px;border:1px solid #334563;border-radius:8px;background:#111a2c;color:#bcd0f3;font-size:12px}.adminBadge{display:inline-block;padding:4px 8px;border-radius:999px;background:#6d2940;color:#ffd7e2;font-size:11px;font-weight:900} 
 #loginScreen{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#1c2b4b,#070b14 72%)}.loginPanel{width:min(430px,92vw);padding:28px;border:1px solid #405477;border-radius:18px;background:#11192aec;box-shadow:0 20px 70px #000b;text-align:center}.loginPanel input{width:100%;padding:12px;margin:6px 0;border-radius:9px;border:1px solid #3b4e70;background:#080d17;color:#fff}.loginTabs{display:flex;gap:7px;margin-bottom:14px}.loginTabs button{flex:1}.finalEnd{position:fixed;inset:0;z-index:50;background:#03050b;display:flex;align-items:center;justify-content:center;text-align:center}.finalEnd h1{font-size:clamp(28px,5vw,68px);letter-spacing:5px;text-shadow:0 0 25px #9b65ff}.finalEnd p{color:#9eacd0}
@@ -50,8 +51,99 @@ cursor:crosshair;image-rendering:auto}
   .keys{display:none}
 }
 
-.gemBtn{background:linear-gradient(135deg,#34305d,#5b3f79);border-color:#8066ad}.gemBadge{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:999px;background:#25213a;border:1px solid #6c5b91;color:#e9ddff;font-size:11px;font-weight:900}.gemCard{position:relative;overflow:hidden}.gemCard::after{content:'✦';position:absolute;right:10px;top:8px;font-size:28px;opacity:.12}.gemNormal{border-color:#60748f}.gemHard{border-color:#7b66aa}.gemSuper{border-color:#a86b52}.gemImpossible{border-color:#d8b85c;box-shadow:inset 0 0 22px #d8b85c0c}.questDone{outline:2px solid #7cf29a}.questHidden{filter:saturate(.55)}
+/* ===== ULTRA VISUAL UPGRADE ===== */
+:root{
+  --glass:rgba(9,16,31,.72);
+  --line:rgba(130,190,255,.24);
+  --glow:rgba(70,180,255,.28);
+}
+body{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(40,110,190,.16),transparent 38%),
+    radial-gradient(circle at 0% 100%,rgba(120,60,220,.12),transparent 35%),
+    #03060d;
+}
+#gameWrap{
+  border:1px solid rgba(130,200,255,.28)!important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.025) inset,
+    0 24px 80px rgba(0,0,0,.62),
+    0 0 55px rgba(50,150,255,.10);
+  backdrop-filter:blur(7px);
+}
+#topbar{
+  background:linear-gradient(180deg,rgba(13,24,43,.92),rgba(7,13,25,.78))!important;
+  border-bottom:1px solid rgba(130,200,255,.18)!important;
+  box-shadow:0 8px 28px rgba(0,0,0,.28);
+}
+.pill,.btn,.card,.panel,.hint,.bottom{
+  backdrop-filter:blur(10px);
+}
+.pill{
+  box-shadow:0 0 18px rgba(50,150,255,.08), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.btn{
+  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease!important;
+}
+.btn:hover{
+  transform:translateY(-2px) scale(1.015);
+  filter:brightness(1.12);
+  box-shadow:0 8px 25px rgba(50,150,255,.18);
+}
+.btn:active{transform:translateY(0) scale(.985)}
+#startPanel{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(80,190,255,.13),transparent 48%),
+    linear-gradient(145deg,rgba(8,17,32,.94),rgba(8,10,22,.91))!important;
+  border:1px solid rgba(130,210,255,.25)!important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.025) inset,
+    0 25px 70px rgba(0,0,0,.65),
+    0 0 55px rgba(60,170,255,.14)!important;
+}
+#startPanel h1{
+  text-shadow:0 0 12px rgba(90,190,255,.55),0 0 38px rgba(90,120,255,.25);
+  letter-spacing:.06em;
+}
+@keyframes rkPulse{
+  0%,100%{opacity:.72;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.018)}
+}
+#startPanel h1{animation:rkPulse 3.5s ease-in-out infinite}
+
+
+#fxOverlay{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  pointer-events:none!important;
+  z-index:3!important;
+}
+#c{position:relative;z-index:1}
+
 </style>
+
+<style id="max-graphics-css">
+/* ===== ROGUE-KING MAX GRAPHICS ===== */
+#gameWrap{position:relative;overflow:hidden}
+#c{filter:saturate(1.12) contrast(1.05)}
+#maxWeather,#maxLight{
+ position:absolute;inset:0;width:100%;height:100%;
+ pointer-events:none;z-index:4
+}
+#maxLight{mix-blend-mode:screen}
+#maxWeather{z-index:5}
+.max-ui-glow{
+ box-shadow:0 0 24px rgba(75,180,255,.12),inset 0 1px 0 rgba(255,255,255,.05)
+}
+@keyframes maxPulse{
+ 0%,100%{box-shadow:0 0 12px rgba(80,190,255,.08)}
+ 50%{box-shadow:0 0 28px rgba(80,190,255,.2)}
+}
+#topbar{animation:maxPulse 4s ease-in-out infinite}
+</style>
+
 </head>
 <body>
 <div id="loginScreen">
@@ -71,15 +163,16 @@ cursor:crosshair;image-rendering:auto}
   <div id="top">
     <div class="pill">Phòng <b id="roomTxt">1/300</b></div>
     <div class="pill">Phó bản <b id="stageTxt">1/30</b></div>
-    <div class="pill">⏱️ Thời gian <b id="timerTxt">02:00</b></div>
     <div class="pill">Cấp <b id="lvTxt">1</b></div>
     <div class="pill">Xu LOL <b class="gold" id="coinTxt">0</b></div>
     <div class="pill">Class <b id="classTxt">Tân Binh</b></div>\n    <div class="pill">Chủng tộc <b id="raceTxt">Người</b></div>
     <div class="pill">Vũ khí <b id="weaponTxt">Súng Xung</b></div>
   </div>
   <div id="gamebox">
-    <canvas id="c"></canvas>
-    <div id="mobileControls"><div id="joy"><div id="knob"></div></div><button id="fireBtn" class="mobileBtn">🔫</button><button id="dashBtn" class="mobileBtn">Q</button><button id="skillBtn" class="mobileBtn">E</button></div>
+    
+<canvas id="c"></canvas>
+<canvas id="fxOverlay"></canvas><canvas id="maxLight"></canvas><canvas id="maxWeather"></canvas>
+
     <div id="mobileControls"><div id="joy"><div id="knob"></div></div><div id="aimJoy"><div id="aimKnob"></div></div><button id="fireBtn" class="mobileBtn">🔫</button><button id="dashBtn" class="mobileBtn">Q</button><button id="skillBtn" class="mobileBtn">E</button></div>
 <div id="hud">
       <div id="bars">
@@ -102,7 +195,7 @@ cursor:crosshair;image-rendering:auto}
   </div>
   <div id="bottom">
     <button id="shopBtn" class="goldbtn">🛒 Cửa hàng (B)</button>
-    <button id="classBtn">🧙 Class (C)</button><button id="raceBtn">🧬 Chủng tộc</button><button id="gemBtn" class="gemBtn">💎 Đá quý & Nhiệm vụ ẩn</button><button id="titleBtn">🏆 Danh hiệu</button>
+    <button id="classBtn">🧙 Class (C)</button><button id="raceBtn">🧬 Chủng tộc</button>
     <button id="equipBtn">🎒 Trang bị</button><button id="adminBtn" class="danger" style="display:none">⚡ ADMIN</button>
     <button id="saveBtn">💾 Lưu</button>
     <button id="restartBtn" class="danger">↻ Chơi lại phó bản</button><button id="lobbyBtn" class="exitLobby">🚪 Sảnh chờ</button>
@@ -113,8 +206,8 @@ cursor:crosshair;image-rendering:auto}
 'use strict';
 const canvas=document.getElementById('c'),ctx=canvas.getContext('2d',{alpha:false});
 const $=id=>document.getElementById(id);
-const ui={room:$('roomTxt'),stage:$('stageTxt'),lv:$('lvTxt'),coin:$('coinTxt'),cls:$('classTxt'),race:$('raceTxt'),weapon:$('weaponTxt'),timer:$('timerTxt'),hp:$('hpBar'),en:$('enBar'),xp:$('xpBar'),toast:$('toast'),modal:$('modal'),panel:$('panel'),start:$('startScreen')};
-let W=1280,H=720,dpr=1,last=performance.now(),running=false,paused=false,roomCleared=false,spawnTimer=0,stageTimeLeft=120,stageTimedOut=false;
+const ui={room:$('roomTxt'),stage:$('stageTxt'),lv:$('lvTxt'),coin:$('coinTxt'),cls:$('classTxt'),race:$('raceTxt'),weapon:$('weaponTxt'),hp:$('hpBar'),en:$('enBar'),xp:$('xpBar'),toast:$('toast'),modal:$('modal'),panel:$('panel'),start:$('startScreen')};
+let W=1280,H=720,dpr=1,last=performance.now(),running=false,paused=false,roomCleared=false,spawnTimer=0;
 const keys={},mouse={x:0,y:0,down:false};
 const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function resize(){const r=canvas.getBoundingClientRect();dpr=Math.min(1.5,devicePixelRatio||1);W=Math.max(700,r.width);H=Math.max(420,r.height);canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
@@ -134,18 +227,18 @@ phoenix:{name:'Phượng Hoàng Plasma',cost:100000,hp:200,en:190,speed:290,dmg:
 };
 
 const races={
-  human:{name:'Người',costMin:500000,tier:1,hp:1,en:1,speed:1,dmg:1,desc:'Chủng tộc cân bằng, dễ sử dụng.'},
-  fish:{name:'Cá',costMin:1000000,tier:1,hp:1.05,en:1.12,speed:1.03,dmg:1,desc:'Cơ động và nhiều năng lượng.'},
-  rabbit:{name:'Thỏ',costMin:2000000,tier:1,hp:.96,en:1.05,speed:1.15,dmg:1.03,desc:'Tốc độ di chuyển cao.'},
-  demon:{name:'Quỷ',costMin:10000000,tier:2,hp:1.22,en:1.02,speed:1.05,dmg:1.22,desc:'Sát thương và HP cao.'},
-  angel:{name:'Thiên thần',costMin:25000000,tier:2,hp:1.12,en:1.28,speed:1.08,dmg:1.15,desc:'Năng lượng dồi dào.'},
-  ghost:{name:'Ma',costMin:50000000,tier:1,hp:.9,en:1.3,speed:1.1,dmg:1.08,desc:'Nhanh và giàu năng lượng.'},
-  spirit:{name:'Tinh linh',costMin:100000000,tier:1,hp:1,en:1.2,speed:1.12,dmg:1.08,desc:'Cân bằng thiên về kỹ năng.'},
-  god:{name:'Thần',costMin:1000000000,tier:3,hp:1.65,en:1.7,speed:1.22,dmg:1.55,desc:'Cấp sức mạnh thần cấp.'},
-  beastman:{name:'Nhân thú',costMin:10000000000,tier:3,hp:1.45,en:1.3,speed:1.35,dmg:1.42,desc:'Chủng tộc chiến đấu cực mạnh.'},
-  beastgod:{name:'Thần thú',costMin:100000000000,tier:2,hp:1.5,en:1.25,speed:1.25,dmg:1.5,desc:'Sức mạnh hoang dã.'},
-  dragon:{name:'Rồng',costMin:1000000000000,tier:2,hp:1.8,en:1.35,speed:1.08,dmg:1.7,desc:'HP và sát thương cực cao.'},
-  master:{name:'Master of the World: Between Life and Death',costMin:10000000000000,tier:4,hp:3,en:3,speed:1.6,dmg:3,desc:'Chủng tộc tối thượng. Không thể mua bằng xu thông thường.'}
+  human:{name:'Người',costMin:5000¨00,tier:1,hp:1,en:1,speed:1,dmg:1,desc:'Chủng tộc cân bằng, dễ sử dụng.'},
+  fish:{name:'Cá',costMin:10000000,tier:1,hp:1.05,en:1.12,speed:1.03,dmg:1,desc:'Cơ động và nhiều năng lượng.'},
+  rabbit:{name:'Thỏ',costMin:20000000,tier:1,hp:.96,en:1.05,speed:1.15,dmg:1.03,desc:'Tốc độ di chuyển cao.'},
+  demon:{name:'Quỷ',costMin:1000000000,tier:2,hp:1.22,en:1.02,speed:1.05,dmg:1.22,desc:'Sát thương và HP cao.'},
+  angel:{name:'Thiên thần',costMin:2500000000,tier:2,hp:1.12,en:1.28,speed:1.08,dmg:1.15,desc:'Năng lượng dồi dào.'},
+  ghost:{name:'Ma',costMin:500000¨0000,tier:1,hp:.9,en:1.3,speed:1.1,dmg:1.08,desc:'Nhanh và giàu năng lượng.'},
+  spirit:{name:'Tinh linh',costMin:100000000000,tier:1,hp:1,en:1.2,speed:1.12,dmg:1.08,desc:'Cân bằng thiên về kỹ năng.'},
+  god:{name:'Thần',costMin:10000000000000,tier:3,hp:1.65,en:1.7,speed:1.22,dmg:1.55,desc:'Cấp sức mạnh thần cấp.'},
+  beastman:{name:'Nhân thú',costMin:1000000000000000,tier:3,hp:1.45,en:1.3,speed:1.35,dmg:1.42,desc:'Chủng tộc chiến đấu cực mạnh.'},
+  beastgod:{name:'Thần thú',costMin:100000000000000000,tier:2,hp:1.5,en:1.25,speed:1.25,dmg:1.5,desc:'Sức mạnh hoang dã.'},
+  dragon:{name:'Rồng',costMin:1000000000000000000000,tier:2,hp:1.8,en:1.35,speed:1.08,dmg:1.7,desc:'HP và sát thương cực cao.'},
+  master:{name:'Master of the World: Between Life and Death',costMin:10000000000000000000000000,tier:4,hp:3,en:3,speed:1.6,dmg:3,desc:'Chủng tộc tối thượng. Không thể mua bằng xu thông thường.'}
 };
 const weapons={
  pulse:{name:'Súng Xung',cost:0,dmg:18,rate:5.5,speed:660,spread:.04,color:'#8be9ff',energy:2,shots:1},
@@ -165,7 +258,7 @@ const helmets={none:{name:'Không mũ',cost:0,hp:0},scout:{name:'Mũ Trinh Sát'
 const pants={none:{name:'Quần Cơ Bản',cost:0,hp:0,armor:0},combat:{name:'Quần Chiến Thuật',cost:1100,hp:15,armor:.03},reactor:{name:'Quần Reactor',cost:4200,hp:35,armor:.05},shadow:{name:'Quần Bóng Tối',cost:10500,hp:20,armor:.09},void:{name:'Quần Hư Không',cost:30000,hp:70,armor:.13}};
 const boots={none:{name:'Giày Cơ Bản',cost:0,speed:0,en:0},runner:{name:'Giày Tăng Tốc',cost:1000,speed:35,en:0},jet:{name:'Giày Phản Lực',cost:4800,speed:65,en:10},phase:{name:'Giày Pha Lệch',cost:12000,speed:90,en:20},cosmic:{name:'Giày Vũ Trụ',cost:35000,speed:125,en:40}};
 const utils={none:{name:'Không phụ kiện',cost:0,en:0,speed:0},battery:{name:'Pin Vĩnh Quang',cost:800,en:35,speed:0},boots:{name:'Giày Từ Trường',cost:1800,en:0,speed:24},core:{name:'Lõi Hỗn Mang',cost:6500,en:60,speed:18}};
-let save={room:1,stage:1,level:1,xp:0,coins:400,cls:'rookie',race:'human',weapon:'pulse',armor:'none',helmet:'none',pants:'none',boots:'none',util:'none',ownedClasses:['rookie'],ownedWeapons:['pulse'],ownedArmors:['none'],ownedHelmets:['none'],ownedPants:['none'],ownedBoots:['none'],ownedUtils:['none'],gems:[],questStats:{kills:0,bosses:0,perfectStages:0},hiddenQuestClaimed:[],unlockedTitles:[],title:'Tân Binh Săn Quái'};
+let save={room:1,stage:1,level:1,xp:0,coins:400,cls:'rookie',race:'human',weapon:'pulse',armor:'none',helmet:'none',pants:'none',boots:'none',util:'none',ownedClasses:['rookie'],ownedWeapons:['pulse'],ownedArmors:['none'],ownedHelmets:['none'],ownedPants:['none'],ownedBoots:['none'],ownedUtils:['none']};
 
 let currentAccount=null,isRegister=false;
 const ADMIN_USER='OWNER_NIGHTFALL';
@@ -223,81 +316,7 @@ function switchRegister(on){
 }
 function load(){try{const s=JSON.parse(localStorage.getItem('rk500_save')||'null');if(s)save={...save,...s};}catch(e){} sanitize();}
 function persist(){localStorage.setItem('rk500_save',JSON.stringify(save));toast('Đã lưu tiến trình');}
-function sanitize(){save.room=clamp(save.room|0,1,300);save.stage=clamp(save.stage|0,1,30);save.level=clamp(save.level|0,1,1000000000);if(!Array.isArray(save.ownedRaces))save.ownedRaces=['human'];save.race=save.race||'human';for(const k of ['ownedClasses','ownedWeapons','ownedArmors','ownedHelmets','ownedPants','ownedBoots','ownedUtils'])if(!Array.isArray(save[k]))save[k]=[];save.pants=save.pants||'none';save.boots=save.boots||'none';if(!Array.isArray(save.gems))save.gems=[];if(!save.questStats)save.questStats={kills:0,bosses:0,perfectStages:0};save.questStats.kills=Number(save.questStats.kills)||0;save.questStats.bosses=Number(save.questStats.bosses)||0;save.questStats.perfectStages=Number(save.questStats.perfectStages)||0;if(!Array.isArray(save.hiddenQuestClaimed))save.hiddenQuestClaimed=[];if(!Array.isArray(save.unlockedTitles))save.unlockedTitles=[];if(typeof save.title!=='string'||!save.title)save.title='Tân Binh Săn Quái';}
-const killTitles=[
- {n:'Tân Binh Săn Quái',need:1,tier:'DỄ',color:'#9aa4b2'},
- {n:'DOUBLE KILL',need:2,tier:'DỄ',color:'#7cf29a'},
- {n:'TRIPLE KILL',need:3,tier:'DỄ',color:'#6fe7ff'},
- {n:'QUAD KILL',need:4,tier:'DỄ',color:'#ffd166'},
- {n:'PENTA KILL',need:5,tier:'DỄ',color:'#ff9f68'},
- {n:'RAMPAGE',need:6,tier:'KHÓ',color:'#ff7b9c'},
- {n:'MONSTER HUNTER',need:7,tier:'KHÓ',color:'#d38cff'},
- {n:'CHAOS BRINGER',need:8,tier:'KHÓ',color:'#b98cff'},
- {n:'UNSTOPPABLE',need:9,tier:'KHÓ',color:'#ff6b6b'},
- {n:'YOU KING!!!',need:10,tier:'KHÓ',color:'#ffe66d'},
- {n:'KING SLAYER',need:12,tier:'SIÊU KHÓ',color:'#ffcc66'},
- {n:'NIGHTMARE LORD',need:15,tier:'SIÊU KHÓ',color:'#c98cff'},
- {n:'VOID REAPER',need:20,tier:'SIÊU KHÓ',color:'#9b7cff'},
- {n:'BOSS OF THE SWARM',need:30,tier:'SIÊU KHÓ',color:'#ff8f70'},
- {n:'INFERNAL EMPEROR',need:40,tier:'SIÊU KHÓ',color:'#ff5d73'},
- {n:'STAR DESTROYER',need:50,tier:'SIÊU KHÓ',color:'#72e7ff'},
- {n:'APOCALYPSE KING',need:75,tier:'KHÔNG THỂ',color:'#ffda75'},
- {n:'DIMENSION BREAKER',need:100,tier:'KHÔNG THỂ',color:'#d8a7ff'},
- {n:'ETERNAL GOD',need:150,tier:'KHÔNG THỂ',color:'#9ff5ff'},
- {n:'SUPREME ROGUE KING',need:200,tier:'KHÔNG THỂ',color:'#ffffff'}
-];
-function titleForKills(n){let out=killTitles[0];for(const t of killTitles)if(n>=t.need)out=t;return out;}
-function showKillStreak(n){if(n<2)return;const t=titleForKills(n);const msg=n===2?'DOUBLE KILL':n===3?'TRIPLE KILL':n===4?'QUAD KILL':n===5?'PENTA KILL':n===10?'YOU KING!!!':n<10?['','', '', '', '', '', 'RAMPAGE','MONSTER KILL','CHAOS BRINGER','UNSTOPPABLE'][n]:t.n;ui.toast.innerHTML='<b style="font-size:24px;color:'+t.color+';text-shadow:0 0 14px '+t.color+'">'+msg+'</b><div style="font-size:12px;margin-top:3px">×'+n+' hạ gục cùng lúc</div>';ui.toast.classList.add('show');clearTimeout(showKillStreak._t);showKillStreak._t=setTimeout(()=>ui.toast.classList.remove('show'),1100);
- if(n>=2&&!save.unlockedTitles.includes(t.n)){save.unlockedTitles.push(t.n);save.title=t.n;persist();}
-}
-function titleMenu(){
- let html=`<div class="row"><h2>🏆 Danh Hiệu</h2><button onclick="RK.close()">✕</button></div><p class="sub">Hạ nhiều quái trong <b>cùng một nhịp xử lý</b> để mở khóa danh hiệu. Danh hiệu càng cao càng khó.</p><div class="card" style="margin-bottom:12px"><b>Đang đeo:</b> <span style="color:#ffe66d">${save.title}</span></div>`;
- for(const tier of ['DỄ','KHÓ','SIÊU KHÓ','KHÔNG THỂ']){
-  html+=`<h3>${tier}</h3><div class="grid">`;
-  for(const t of killTitles.filter(x=>x.tier===tier)){
-   const own=save.unlockedTitles.includes(t.n);
-   const safeName=t.n.replace(/'/g,"\\'");
-   html+=`<div class="card ${own?'equipped':'locked'}"><div class="row"><b style="color:${t.color}">${t.n}</b><span class="tag">${own?'ĐÃ MỞ':'🔒'}</span></div><p class="small">Yêu cầu: hạ ${t.need} quái cùng lúc.</p><button ${own?'':'disabled'} onclick="RK.equipTitle('${safeName}')">${save.title===t.n?'Đang đeo':'Đeo danh hiệu'}</button></div>`;
-  }
-  html+='</div>';
- }
- openModal(html);
-}
-const gemstones={
- frostbite:{name:'Frostbite Shard',vi:'Mảnh Băng Giá',tier:'NORMAL',cls:'gemNormal',how:'Hạ 20 quái trong hành trình.',req:s=>s.questStats.kills>=20},
- shadowite:{name:'Shadowite',vi:'Hắc Thạch',tier:'NORMAL',cls:'gemNormal',how:'Hạ 50 quái.',req:s=>s.questStats.kills>=50},
- bloodstone:{name:'Bloodstone Core',vi:'Lõi Huyết Thạch',tier:'NORMAL',cls:'gemNormal',how:'Đánh bại 1 Boss.',req:s=>s.questStats.bosses>=1},
- storm:{name:'Storm Crystal',vi:'Tinh Thạch Bão Tố',tier:'NORMAL',cls:'gemNormal',how:'Hoàn thành Phó bản 3.',req:s=>s.room>1||s.stage>=4},
- voidgem:{name:'Voidgem',vi:'Hư Không Ngọc',tier:'HARD',cls:'gemHard',how:'Tiến tới Phòng 10.',req:s=>s.room>=10},
- nightfall:{name:'Nightfall Crystal',vi:'Tinh Thạch Hoàng Hôn',tier:'HARD',cls:'gemHard',how:'Đánh bại Boss ở Phó bản 5.',req:s=>s.questStats.bosses>=2},
- soulstone:{name:'Soulstone',vi:'Linh Hồn Thạch',tier:'HARD',cls:'gemHard',how:'Đạt Level 25.',req:s=>s.level>=25},
- aetherite:{name:'Aetherite',vi:'Thiên Không Thạch',tier:'HARD',cls:'gemHard',how:'Hoàn thành 1 Phó bản mà không nhận sát thương.',req:s=>s.questStats.perfectStages>=1},
- draconium:{name:'Draconium',vi:'Long Thạch',tier:'SUPER HARD',cls:'gemSuper',how:'Hạ Boss tại Phòng 25.',req:s=>s.room>=25&&s.questStats.bosses>=5},
- astralite:{name:'Astralite',vi:'Tinh Thạch Ngân Hà',tier:'SUPER HARD',cls:'gemSuper',how:'Tiến tới Phòng 50.',req:s=>s.room>=50},
- infernium:{name:'Infernium',vi:'Hỏa Ngục Thạch',tier:'SUPER HARD',cls:'gemSuper',how:'Đánh bại 10 Boss.',req:s=>s.questStats.bosses>=10},
- eclipse:{name:'Eclipse Gem',vi:'Nhật Thực Ngọc',tier:'SUPER HARD',cls:'gemSuper',how:'Tiến tới Phòng 100.',req:s=>s.room>=100},
- oblivion:{name:'Oblivion Crystal',vi:'Tinh Thạch Hư Vô',tier:'KHÔNG THỂ',cls:'gemImpossible',how:'Tiến tới Phòng 150.',req:s=>s.room>=150},
- celestium:{name:'Celestium',vi:'Thiên Giới Thạch',tier:'KHÔNG THỂ',cls:'gemImpossible',how:'Tiến tới Phòng 200.',req:s=>s.room>=200},
- eternyx:{name:'Eternyx',vi:'Vĩnh Hằng Ngọc',tier:'KHÔNG THỂ',cls:'gemImpossible',how:'Sưu tập 14 đá quý đầu tiên.',req:s=>s.gems.length>=14},
- genesis:{name:'Genesis Core',vi:'Lõi Khởi Nguyên',tier:'KHÔNG THỂ',cls:'gemImpossible',how:'Đánh bại THE IMPOSSIBLE ở cuối Phòng 300 • Phó bản 30.',req:s=>false}
-};
-const gemOrder=Object.keys(gemstones);
-let stageHitless=true;
-function hasGem(id){return Array.isArray(save.gems)&&save.gems.includes(id)}
-function awardGem(id){if(hasGem(id)||!gemstones[id])return false;save.gems.push(id);persist();toast('💎 NHẬN ĐƯỢC '+gemstones[id].name+'!');return true}
-function checkHiddenGems(){
- for(const id of gemOrder){const g=gemstones[id];if(id==='genesis')continue;if(!hasGem(id)&&g.req(save))awardGem(id);}
- if(!hasGem('genesis')&&save.room===300&&save.stage===30&&save.questStats.kills>=1&&window.__defeatedImpossible)awardGem('genesis');
-}
-function gemProgress(){return save.gems.length+'/'+gemOrder.length}
-function gemstoneMenu(){
- checkHiddenGems();
- const tiers=['NORMAL','HARD','SUPER HARD','KHÔNG THỂ'];
- let html=`<div class="row"><h2>💎 Bộ Sưu Tập Đá Quý</h2><button onclick="RK.close()">✕</button></div><p class="sub">Thu thập đủ <b>${gemProgress()}</b> loại. Các viên được nhận từ nhiệm vụ ẩn; không mua bằng xu LOL.</p>`;
- for(const tier of tiers){const list=gemOrder.filter(id=>gemstones[id].tier===tier);html+=`<h3 style="margin:18px 0 8px">${tier}</h3><div class="grid">`;for(const id of list){const g=gemstones[id],own=hasGem(id);html+=`<div class="card gemCard ${g.cls} ${own?'questDone':''}"><div class="row"><b>${own?'💎':'🔒'} ${g.name}</b><span class="gemBadge">${own?'ĐÃ SƯU TẬP':g.tier}</span></div><p class="small">${g.vi}</p><p class="small"><b>Cách lấy:</b> ${g.how}</p><div class="tag">${own?'✓ Đã mở khóa':'Nhiệm vụ ẩn'}</div></div>`}html+='</div>'}
- const pct=Math.floor(save.gems.length/gemOrder.length*100);html+=`<div class="card" style="margin-top:16px"><h3>🏆 Nhiệm vụ tối thượng</h3><p class="small">Sưu tập đủ 16 đá quý để hoàn thành <b>THE GEM HUNTER</b>. Tiến độ: ${save.gems.length}/16 (${pct}%).</p></div>`;
- openModal(html);
-}
+function sanitize(){save.room=clamp(save.room|0,1,300);save.stage=clamp(save.stage|0,1,30);save.level=clamp(save.level|0,1,1000000000);if(!Array.isArray(save.ownedRaces))save.ownedRaces=['human'];save.race=save.race||'human';for(const k of ['ownedClasses','ownedWeapons','ownedArmors','ownedHelmets','ownedPants','ownedBoots','ownedUtils'])if(!Array.isArray(save[k]))save[k]=[];save.pants=save.pants||'none';save.boots=save.boots||'none';}
 function xpNeed(lv){if(lv>=1000000000)return Infinity;const x=Math.min(700,Math.log1p(lv)*0.055);return Math.max(100,Math.floor(120*Math.exp(x)*(1+Math.log10(lv+1))));}
 function num(n){if(!isFinite(n))return 'MAX';if(n<1e6)return Math.floor(n).toLocaleString('vi-VN');return n.toExponential(2).replace('+','');}
 let player,bullets=[],enemyBullets=[],enemies=[],particles=[],pickups=[],obstacles=[];
@@ -307,7 +326,7 @@ function difficulty(){
  const raw=Math.pow(1000,Math.min(5,steps/90));
  return Math.min(500000,Math.max(1,raw));
 }
-function buildRoom(){stageHitless=true;stageTimedOut=false;stageTimeLeft=(save.stage%5===0)?270:120;checkHiddenGems();bullets=[];enemyBullets=[];enemies=[];particles=[];pickups=[];obstacles=[];roomCleared=false;spawnTimer=0;resetPlayer();const count=3+Math.min(10,Math.floor(Math.log10(difficulty()+1)*2));for(let i=0;i<count;i++){const x=rnd(90,W-90),y=rnd(120,H-110);if(Math.hypot(x-W/2,y-H*.72)>160)obstacles.push({x,y,w:rnd(45,100),h:rnd(35,75)});}const boss=save.stage%5===0;if(boss){spawnBoss();}else{const n=Math.min(22,5+Math.floor(Math.log10(difficulty()+1)*3));for(let i=0;i<n;i++)spawnEnemy(i*.12);}updateUI();}
+function buildRoom(){bullets=[];enemyBullets=[];enemies=[];particles=[];pickups=[];obstacles=[];roomCleared=false;spawnTimer=0;resetPlayer();const count=3+Math.min(10,Math.floor(Math.log10(difficulty()+1)*2));for(let i=0;i<count;i++){const x=rnd(90,W-90),y=rnd(120,H-110);if(Math.hypot(x-W/2,y-H*.72)>160)obstacles.push({x,y,w:rnd(45,100),h:rnd(35,75)});}const boss=save.stage%5===0;if(boss){spawnBoss();}else{const n=Math.min(22,5+Math.floor(Math.log10(difficulty()+1)*3));for(let i=0;i<n;i++)spawnEnemy(i*.12);}updateUI();}
 function enemyStats(type){const d=difficulty();let hp=44*d,dmg=9*d,speed=80+Math.min(90,d*5),r=14,shoot=.9;
  if(type==='charger'){hp*=1.25;speed*=1.45;shoot=0}
  if(type==='tank'){hp*=2.3;speed*=.62;r=20;shoot=.55}
@@ -316,7 +335,7 @@ function enemyStats(type){const d=difficulty();let hp=44*d,dmg=9*d,speed=80+Math
 function spawnEnemy(delay=0){const types=['grunt','charger','tank','sniper'];const type=types[Math.min(types.length-1,Math.floor(Math.random()*(1+difficulty()/6)))];const s=enemyStats(type),side=Math.floor(Math.random()*4);let x,y;if(side===0){x=40;y=rnd(60,H*.6)}else if(side===1){x=W-40;y=rnd(60,H*.6)}else{x=rnd(60,W-60);y=55}enemies.push({x,y,...s,type,fire:rnd(.2,1.2),alive:true,delay,slow:0});}
 function spawnBoss(){const d=difficulty();const final=save.room===300&&save.stage===30;const hp=(final?1100:760)*d;enemies.push({x:W/2,y:130,r:final?42:36,hp,maxHp:hp,dmg:18*d,speed:58+Math.min(55,d*3),shoot:1.1,fire:.6,alive:true,boss:true,phase:0,type:final?'impossible':'warden',delay:0});toast(final?'BOSS CUỐI PHÒNG!':'BOSS GIỮA PHÒNG!');}
 function toast(t){ui.toast.textContent=t;ui.toast.style.opacity=1;clearTimeout(toast.t);toast.t=setTimeout(()=>ui.toast.style.opacity=0,1400);}
-function updateUI(){const need=xpNeed(save.level);ui.room.textContent=save.room+'/300';ui.stage.textContent=save.stage+'/30';if(ui.timer){const t=Math.max(0,Math.ceil(stageTimeLeft));const m=Math.floor(t/60),sec=t%60;ui.timer.textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');ui.timer.style.color=t<=20?'#ff6b6b':(save.stage%5===0?'#ffd166':'');}ui.lv.textContent=save.level;ui.coin.textContent=num(save.coins);ui.cls.textContent=classes[save.cls].name;ui.race.textContent=races[save.race||'human'].name;ui.weapon.textContent=weapons[save.weapon].name;if(player){ui.hp.style.width=(player.hp/player.maxHp*100)+'%';ui.en.style.width=(player.en/player.maxEn*100)+'%';ui.xp.style.width=(need===Infinity?100:Math.min(100,save.xp/need*100))+'%';}}
+function updateUI(){const need=xpNeed(save.level);ui.room.textContent=save.room+'/300';ui.stage.textContent=save.stage+'/30';ui.lv.textContent=save.level;ui.coin.textContent=num(save.coins);ui.cls.textContent=classes[save.cls].name;ui.race.textContent=races[save.race||'human'].name;ui.weapon.textContent=weapons[save.weapon].name;if(player){ui.hp.style.width=(player.hp/player.maxHp*100)+'%';ui.en.style.width=(player.en/player.maxEn*100)+'%';ui.xp.style.width=(need===Infinity?100:Math.min(100,save.xp/need*100))+'%';}}
 function addXp(v){if(save.level>=1000000000)return;save.xp+=v;let need=xpNeed(save.level);let n=0;while(save.xp>=need&&save.level<1000000000&&n<30){save.xp-=need;save.level++;n++;need=xpNeed(save.level);player.hp=Math.min(player.maxHp,player.hp+15);player.en=player.maxEn;}if(n)toast('LÊN CẤP '+save.level+'!');}
 function collideRectCircle(o,x,y,r){const nx=clamp(x,o.x-o.w/2,o.x+o.w/2),ny=clamp(y,o.y-o.h/2,o.y+o.h/2);return (x-nx)**2+(y-ny)**2<r*r;}
 function moveEntity(e,dx,dy){let nx=clamp(e.x+dx,e.r+8,W-e.r-8),ny=clamp(e.y+dy,e.r+45,H-e.r-8);for(const o of obstacles){if(collideRectCircle(o,nx,e.y,e.r))nx=e.x;if(collideRectCircle(o,e.x,ny,e.r))ny=e.y;}e.x=nx;e.y=ny;}
@@ -330,10 +349,10 @@ function useSkill(){if(player.skillCd>0)return;const c=save.cls;player.skillCd=7
  if(c==='assassin'){player.stealth=2.8;player.inv=1.2;toast('Ảnh thân!')}}
 function dash(){if(player.dashCd>0)return;let dx=(keys.KeyD?1:0)-(keys.KeyA?1:0),dy=(keys.KeyS?1:0)-(keys.KeyW?1:0);if(!dx&&!dy){const a=Math.atan2(mouse.y-player.y,mouse.x-player.x);dx=Math.cos(a);dy=Math.sin(a)}const l=Math.hypot(dx,dy)||1;player.inv=.32;player.dashCd=1.15;for(let i=0;i<9;i++){moveEntity(player,dx/l*16,dy/l*16);particles.push({x:player.x,y:player.y,vx:rnd(-30,30),vy:rnd(-30,30),life:.35,max:.35,r:rnd(4,8),color:'#7fe6ff'});}}
 function burst(x,y,color,n=16){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,s=rnd(40,220);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rnd(.3,.7),max:.7,r:rnd(2,5),color});}}
-function damagePlayer(v){if(adminState.god||player.inv>0||player.stealth>0)return;stageHitless=false;const armor=clamp(armors[save.armor].armor+pants[save.pants].armor,0,.85);const mult=player.shield>0?.35:1;player.hp-=v*(1-armor)*mult;player.inv=.35;burst(player.x,player.y,'#ff5577',8);if(player.hp<=0)gameOver();}
+function damagePlayer(v){if(adminState.god||player.inv>0||player.stealth>0)return;const armor=clamp(armors[save.armor].armor+pants[save.pants].armor,0,.85);const mult=player.shield>0?.35:1;player.hp-=v*(1-armor)*mult;player.inv=.35;burst(player.x,player.y,'#ff5577',8);if(player.hp<=0)gameOver();}
 function endGame(){running=false;paused=true;document.body.insertAdjacentHTML('beforeend',`<div class="finalEnd"><div><div style="font-size:70px">✦</div><h1>YOU HAVE TRANSCENDED THE IMPOSSIBLE</h1><p>The journey ends here.</p><p>Room 300 • Stage 30 • Final Level ${save.level.toLocaleString()}</p></div></div>`);persist();}
 function gameOver(){paused=true;openModal(`<h2>💀 Gục ngã!</h2><p class="sub">Bạn bị hạ ở Phòng ${save.room}, Phó bản ${save.stage}. Bạn không mất trang bị hoặc class.</p><div class="row"><button class="primary" onclick="RK.retry()">Chơi lại phó bản</button><button onclick="RK.close()">Đóng</button></div>`);}
-function finishStage(){if(roomCleared)return;roomCleared=true;if(stageHitless){save.questStats.perfectStages++;}const boss=save.stage%5===0;const reward=Math.floor((boss?220:70)*difficulty()+save.room*8);save.coins+=reward;addXp(Math.floor((boss?180:55)*difficulty()));persist();toast('Dọn sạch! +'+reward+' xu LOL');setTimeout(()=>{if(paused)return;nextStage();},900);}
+function finishStage(){if(roomCleared)return;roomCleared=true;const boss=save.stage%5===0;const reward=Math.floor((boss?220:70)*difficulty()+save.room*8);save.coins+=reward;addXp(Math.floor((boss?180:55)*difficulty()));persist();toast('Dọn sạch! +'+reward+' xu LOL');setTimeout(()=>{if(paused)return;nextStage();},900);}
 function nextStage(){
  if(save.stage<30){save.stage++;}
  else if(save.room<300){save.room++;save.stage=1;toast('⚠️ VÀO PHÒNG '+save.room+' — ĐỘ KHÓ ×1000!');}
@@ -343,38 +362,161 @@ function nextStage(){
  persist();buildRoom();
 }
 function finalChallenge(){
- stageTimeLeft=300;stageTimedOut=false;
  paused=true;
  enemies=[];
  openModal(`<div style="text-align:center;padding:18px"><div style="font-size:64px">☄️</div><h1 style="color:#ff6b8b;text-shadow:0 0 25px #ff4060">THE IMPOSSIBLE</h1><p class="sub">Phòng 300 • Phó bản 30 đã bị phá vỡ.</p><p>Con quái vật cuối cùng đang chờ bạn...</p><button class="primary big" onclick="RK.startFinal()">ENTER THE IMPOSSIBLE</button></div>`);
 }
 function startFinal(){
- closeModal(); stageTimeLeft=300;stageTimedOut=false; paused=false; enemies=[]; roomCleared=false;
+ closeModal(); paused=false; enemies=[]; roomCleared=false;
  const hp=Number.MAX_SAFE_INTEGER;
  enemies.push({x:W/2,y:130,r:58,hp,maxHp:hp,dmg:999999,speed:45,shoot:.8,fire:.5,alive:true,boss:true,phase:0,type:'impossible',delay:0});
  toast('THE IMPOSSIBLE HAS AWAKENED');
 }
-function stageTimeout(){if(stageTimedOut||roomCleared)return;stageTimedOut=true;paused=true;persist();openModal(`<h2>⏰ HẾT THỜI GIAN!</h2><p class="sub">Phòng ${save.room} • Phó bản ${save.stage} đã vượt quá thời gian cho phép.</p><p>${save.stage%5===0?'⚔️ Đây là phó bản Boss — thời gian tối đa 4 phút 30 giây.':'⏱️ Phó bản thường — thời gian tối đa 2 phút.'}</p><div class="row"><button class="primary" onclick="RK.retry()">Chơi lại phó bản</button><button onclick="RK.close()">Đóng</button></div>`);}
-function update(dt){if(!running||paused)return;let simultaneousKills=0;stageTimeLeft-=dt;if(stageTimeLeft<=0){stageTimeLeft=0;stageTimeout();updateUI();return;}player.fireCd=Math.max(0,player.fireCd-dt);player.dashCd=Math.max(0,player.dashCd-dt);player.skillCd=Math.max(0,player.skillCd-dt);player.inv=Math.max(0,player.inv-dt);player.shield=Math.max(0,player.shield-dt);player.rapid=Math.max(0,player.rapid-dt);player.stealth=Math.max(0,player.stealth-dt);player.en=Math.min(player.maxEn,player.en+13*dt);
+function update(dt){if(!running||paused)return;player.fireCd=Math.max(0,player.fireCd-dt);player.dashCd=Math.max(0,player.dashCd-dt);player.skillCd=Math.max(0,player.skillCd-dt);player.inv=Math.max(0,player.inv-dt);player.shield=Math.max(0,player.shield-dt);player.rapid=Math.max(0,player.rapid-dt);player.stealth=Math.max(0,player.stealth-dt);player.en=Math.min(player.maxEn,player.en+13*dt);
  let dx=(keys.KeyD?1:0)-(keys.KeyA?1:0),dy=(keys.KeyS?1:0)-(keys.KeyW?1:0);if(dx||dy){const l=Math.hypot(dx,dy);const sp=adminState.speed||player.speed;if(adminState.noclip){player.x=clamp(player.x+dx/l*sp*dt,player.r,W-player.r);player.y=clamp(player.y+dy/l*sp*dt,player.r+40,H-player.r)}else moveEntity(player,dx/l*sp*dt,dy/l*sp*dt);}if(mouse.down)shootPlayer();
  for(const b of bullets){b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;}for(const b of enemyBullets){b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;}
  for(const e of enemies){if(!e.alive)continue;if(e.delay>0){e.delay-=dt;continue}e.slow=Math.max(0,e.slow-dt);const a=Math.atan2(player.y-e.y,player.x-e.x),dd=Math.hypot(player.x-e.x,player.y-e.y);let sp=e.speed*(e.slow>0?.45:1);if(e.type==='sniper'&&!e.boss){if(dd<340)sp*=-.5;else if(dd<520)sp=0}else if(e.shoot>0&&dd<240)sp*=.35;moveEntity(e,Math.cos(a)*sp*dt,Math.sin(a)*sp*dt);if(dd<e.r+player.r+3)damagePlayer(e.dmg*dt*1.8);if(e.shoot>0){e.fire-=dt;if(e.fire<=0&&dd<720){enemyShoot(e);e.fire=e.boss?(e.hp<e.maxHp*.5?.5:.85):1/e.shoot+rnd(.2,.7);}}}
- for(const b of bullets){if(b.life<=0)continue;for(const e of enemies){if(!e.alive||e.delay>0)continue;if((b.x-e.x)**2+(b.y-e.y)**2<(b.r+e.r)**2){let dmg=b.dmg*(adminState.damage||1);if(save.cls==='assassin'&&player.stealth>0)dmg*=2.2;e.hp-=dmg;if(b.slow)e.slow=Math.max(e.slow,1.6);if(b.pierce>0)b.pierce--;else b.life=0;burst(b.x,b.y,b.color,3);if(e.hp<=0){e.alive=false;simultaneousKills++;if(!e.boss)save.questStats.kills++;else save.questStats.bosses++;checkHiddenGems();const reward=Math.floor((e.boss?120:12)*difficulty());save.coins+=reward;addXp(Math.floor((e.boss?80:10)*difficulty()));burst(e.x,e.y,e.boss?'#ffd166':'#ff718b',e.boss?38:12);if(Math.random()<.25)pickups.push({x:e.x,y:e.y,type:Math.random()<.55?'coin':'energy',life:12});}break;}}}
- if(simultaneousKills>=2)showKillStreak(simultaneousKills);
+ for(const b of bullets){if(b.life<=0)continue;for(const e of enemies){if(!e.alive||e.delay>0)continue;if((b.x-e.x)**2+(b.y-e.y)**2<(b.r+e.r)**2){let dmg=b.dmg*(adminState.damage||1);if(save.cls==='assassin'&&player.stealth>0)dmg*=2.2;e.hp-=dmg;if(b.slow)e.slow=Math.max(e.slow,1.6);if(b.pierce>0)b.pierce--;else b.life=0;burst(b.x,b.y,b.color,3);if(e.hp<=0){e.alive=false;const reward=Math.floor((e.boss?120:12)*difficulty());save.coins+=reward;addXp(Math.floor((e.boss?80:10)*difficulty()));burst(e.x,e.y,e.boss?'#ffd166':'#ff718b',e.boss?38:12);if(Math.random()<.25)pickups.push({x:e.x,y:e.y,type:Math.random()<.55?'coin':'energy',life:12});}break;}}}
  for(const b of enemyBullets){if(b.life>0&&(b.x-player.x)**2+(b.y-player.y)**2<(b.r+player.r)**2){b.life=0;damagePlayer(b.dmg);}}
  for(const p of pickups){p.life-=dt;if(dist(p,player)<26){p.life=0;if(p.type==='coin')save.coins+=Math.floor(18*difficulty());else player.en=Math.min(player.maxEn,player.en+28);}}
- bullets=bullets.filter(b=>b.life>0&&b.x>-30&&b.x<W+30&&b.y>-30&&b.y<H+30);enemyBullets=enemyBullets.filter(b=>b.life>0&&b.x>-30&&b.x<W+30&&b.y>-30&&b.y<H+30);particles=particles.filter(p=>{p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.96;p.vy*=.96;return p.life>0});pickups=pickups.filter(p=>p.life>0);if(enemies.length&&enemies.every(e=>!e.alive)){if(enemies.some(e=>e.type==='impossible')){window.__defeatedImpossible=true;awardGem('genesis');endGame();}else finishStage();}updateUI();}
-function draw(){ctx.fillStyle='#080d17';ctx.fillRect(0,0,W,H);
-const grad=ctx.createRadialGradient(W*.5,H*.48,80,W*.5,H*.48,Math.max(W,H)*.72);grad.addColorStop(0,'#182744');grad.addColorStop(.5,'#0d1728');grad.addColorStop(1,'#070b14');ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);const tile=48;for(let y=40;y<H;y+=tile)for(let x=0;x<W;x+=tile){ctx.fillStyle=((x/tile+y/tile)&1)?'#121a2a':'#0f1725';ctx.fillRect(x,y,tile,tile)}ctx.fillStyle='#27314b';ctx.fillRect(0,38,W,3);
-ctx.strokeStyle='#33496e';ctx.lineWidth=2;ctx.strokeRect(18,56,W-36,H-82);
-ctx.strokeStyle='#1f3455';ctx.lineWidth=1;ctx.strokeRect(30,68,W-60,H-106);for(const o of obstacles){ctx.fillStyle='#263149';ctx.fillRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h);ctx.strokeStyle='#465677';ctx.lineWidth=2;ctx.strokeRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h);ctx.fillStyle='#536582';ctx.fillRect(o.x-o.w/2+5,o.y-o.h/2+5,o.w-10,5)}
- for(const p of pickups){ctx.beginPath();ctx.arc(p.x,p.y,7+Math.sin(performance.now()/120)*2,0,Math.PI*2);ctx.fillStyle=p.type==='coin'?'#ffd166':'#67dfff';ctx.fill()}
- for(const b of bullets){ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle=b.color;ctx.shadowBlur=10;ctx.shadowColor=b.color;ctx.fill();ctx.shadowBlur=0}
- for(const b of enemyBullets){ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle='#ff5a72';ctx.fill()}
- for(const e of enemies){if(!e.alive||e.delay>0)continue;ctx.save();ctx.translate(e.x,e.y);ctx.beginPath();ctx.arc(0,0,e.r,0,Math.PI*2);const ec=e.boss?(e.type==='overlord'?'#9b65ff':'#ff765f'):(e.type==='tank'?'#6f86a8':e.type==='charger'?'#f05d78':e.type==='sniper'?'#c47dff':'#e85d70');ctx.shadowBlur=e.boss?24:10;ctx.shadowColor=ec;ctx.fillStyle=ec;ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#f5f5ff';ctx.globalAlpha=.25;ctx.lineWidth=2;ctx.stroke();ctx.globalAlpha=1;ctx.fillStyle='#f1f5ff';ctx.fillRect(-e.r*.45,-3,e.r*.22,5);ctx.fillRect(e.r*.2,-3,e.r*.22,5);ctx.restore();const bw=e.boss?150:42,bh=e.boss?9:5;ctx.fillStyle='#171a25';ctx.fillRect(e.x-bw/2,e.y-e.r-14,bw,bh);ctx.fillStyle=e.boss?'#ff8d62':'#75e68d';ctx.fillRect(e.x-bw/2,e.y-e.r-14,bw*Math.max(0,e.hp/e.maxHp),bh)}
- if(player){ctx.save();ctx.translate(player.x,player.y);const a=Math.atan2(mouse.y-player.y,mouse.x-player.x);ctx.rotate(a);ctx.globalAlpha=player.stealth>0?.45:1;ctx.shadowBlur=18;ctx.shadowColor=player.shield>0?'#7fe6ff':'#ffffff';ctx.fillStyle=player.shield>0?'#9cecff':'#e7edf8';ctx.beginPath();ctx.arc(0,0,player.r,0,Math.PI*2);ctx.fill();ctx.fillStyle='#25334e';ctx.fillRect(4,-5,20,10);ctx.fillStyle='#7fe6ff';ctx.fillRect(18,-3,10,6);ctx.shadowBlur=0;ctx.restore();if(player.shield>0){ctx.beginPath();ctx.arc(player.x,player.y,24,0,Math.PI*2);ctx.strokeStyle='#8be9ff';ctx.lineWidth=3;ctx.stroke()}}
- for(const p of particles){ctx.globalAlpha=clamp(p.life/(p.max||p.life),0,1);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill()}ctx.globalAlpha=1;
- ctx.fillStyle='#ffffffaa';ctx.font='12px system-ui';ctx.fillText('Độ khó x'+difficulty().toFixed(2),12,H-12);
+ bullets=bullets.filter(b=>b.life>0&&b.x>-30&&b.x<W+30&&b.y>-30&&b.y<H+30);enemyBullets=enemyBullets.filter(b=>b.life>0&&b.x>-30&&b.x<W+30&&b.y>-30&&b.y<H+30);particles=particles.filter(p=>{p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.96;p.vy*=.96;return p.life>0});pickups=pickups.filter(p=>p.life>0);if(enemies.length&&enemies.every(e=>!e.alive)){if(enemies.some(e=>e.type==='impossible'))endGame();else finishStage();}updateUI();}
+function draw(){
+ const t=performance.now()*0.001;
+ // Deep animated backdrop
+ const base=ctx.createLinearGradient(0,0,W,H);
+ base.addColorStop(0,'#070b16'); base.addColorStop(.45,'#101c31'); base.addColorStop(1,'#050811');
+ ctx.fillStyle=base; ctx.fillRect(0,0,W,H);
+
+ // Soft atmospheric light pools
+ for(let i=0;i<4;i++){
+   const px=W*(.18+i*.23)+Math.sin(t*(.22+i*.07))*70;
+   const py=H*(.24+(i%2)*.42)+Math.cos(t*(.19+i*.05))*35;
+   const r=170+i*45;
+   const g=ctx.createRadialGradient(px,py,0,px,py,r);
+   g.addColorStop(0,i%2?'#6d7cff18':'#55e6ff18'); g.addColorStop(1,'#00000000');
+   ctx.fillStyle=g; ctx.fillRect(px-r,py-r,r*2,r*2);
+ }
+
+ // Neon grid / floor
+ ctx.save();
+ ctx.globalAlpha=.28;
+ ctx.strokeStyle='#5c7aa8'; ctx.lineWidth=1;
+ const tile=56;
+ for(let x=0;x<=W;x+=tile){ctx.beginPath();ctx.moveTo(x,40);ctx.lineTo(x,H);ctx.stroke()}
+ for(let y=50;y<=H;y+=tile){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+ ctx.restore();
+
+ // Floating dust / stars, deterministic so no allocations each frame
+ ctx.save();
+ for(let i=0;i<65;i++){
+   const x=(i*97.37)%W;
+   const y=(i*53.19+t*(8+(i%4)*3))%H;
+   const a=.18+.18*Math.sin(t*1.4+i);
+   ctx.globalAlpha=Math.max(.05,a);
+   ctx.fillStyle=i%5===0?'#9eeaff':'#dce7ff';
+   ctx.beginPath();ctx.arc(x,y,1+(i%3)*.45,0,Math.PI*2);ctx.fill();
+ }
+ ctx.restore();
+
+ // Arena frames
+ ctx.save();
+ ctx.strokeStyle='#6f8fbd'; ctx.lineWidth=2; ctx.shadowBlur=18; ctx.shadowColor='#5cdfff33';
+ ctx.strokeRect(18,56,W-36,H-82);
+ ctx.strokeStyle='#2e476e';ctx.lineWidth=1;ctx.shadowBlur=0;
+ ctx.strokeRect(30,68,W-60,H-106);
+ ctx.restore();
+
+ // Decorative corner lights
+ const corners=[[24,62],[W-24,62],[24,H-30],[W-24,H-30]];
+ for(const [x,y] of corners){ctx.save();ctx.fillStyle='#77eaff';ctx.shadowBlur=14;ctx.shadowColor='#77eaff';ctx.beginPath();ctx.arc(x,y,2.5+Math.sin(t*3)*.7,0,Math.PI*2);ctx.fill();ctx.restore()}
+
+ // Obstacles with depth, rim light and soft shadow
+ for(const o of obstacles){
+   ctx.save();ctx.shadowBlur=18;ctx.shadowColor='#000A';ctx.fillStyle='#0a0f1c';
+   ctx.fillRect(o.x-o.w/2+5,o.y-o.h/2+8,o.w,o.h);
+   const og=ctx.createLinearGradient(o.x-o.w/2,o.y-o.h/2,o.x+o.w/2,o.y+o.h/2);
+   og.addColorStop(0,'#344765');og.addColorStop(.5,'#202e47');og.addColorStop(1,'#121b2d');
+   ctx.shadowBlur=0;ctx.fillStyle=og;ctx.fillRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h);
+   ctx.strokeStyle='#7892bb88';ctx.lineWidth=2;ctx.strokeRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h);
+   ctx.fillStyle='#9edcff22';ctx.fillRect(o.x-o.w/2+5,o.y-o.h/2+5,o.w-10,4);
+   ctx.restore();
+ }
+
+ // Pickups
+ for(const p of pickups){
+   const pulse=1+Math.sin(t*5+p.x)*.16;
+   ctx.save();ctx.translate(p.x,p.y);ctx.scale(pulse,pulse);
+   ctx.shadowBlur=22;ctx.shadowColor=p.type==='coin'?'#ffd166':'#67dfff';
+   ctx.fillStyle=p.type==='coin'?'#ffd166':'#67dfff';
+   ctx.beginPath();ctx.arc(0,0,7,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#fff';ctx.globalAlpha=.7;ctx.beginPath();ctx.arc(-2,-2,2,0,Math.PI*2);ctx.fill();
+   ctx.restore();
+ }
+
+ // Projectiles / effects
+ for(const b of bullets){
+   ctx.save();ctx.shadowBlur=18;ctx.shadowColor=b.color;ctx.fillStyle=b.color;
+   ctx.beginPath();ctx.arc(b.x,b.y,b.r*1.15,0,Math.PI*2);ctx.fill();ctx.restore();
+ }
+ for(const b of enemyBullets){
+   ctx.save();ctx.shadowBlur=16;ctx.shadowColor='#ff5a72';ctx.fillStyle='#ff6d83';
+   ctx.beginPath();ctx.arc(b.x,b.y,b.r*1.12,0,Math.PI*2);ctx.fill();ctx.restore();
+ }
+
+ // Enemies
+ for(const e of enemies){
+   if(!e.alive||e.delay>0)continue;
+   ctx.save();ctx.translate(e.x,e.y);
+   const ec=e.boss?(e.type==='overlord'?'#9b65ff':'#ff765f'):(e.type==='tank'?'#6f86a8':e.type==='charger'?'#f05d78':e.type==='sniper'?'#c47dff':'#e85d70');
+   const pulse=1+Math.sin(t*4+e.x*.01)*.035;
+   ctx.scale(pulse,pulse);
+   ctx.shadowBlur=e.boss?30:16;ctx.shadowColor=ec;ctx.fillStyle=ec;
+   ctx.beginPath();ctx.arc(0,0,e.r,0,Math.PI*2);ctx.fill();
+   ctx.shadowBlur=0;ctx.strokeStyle='#ffffff55';ctx.lineWidth=2;ctx.stroke();
+   ctx.fillStyle='#f5f8ff';ctx.fillRect(-e.r*.45,-3,e.r*.22,5);ctx.fillRect(e.r*.2,-3,e.r*.22,5);
+   ctx.restore();
+
+   const bw=e.boss?150:42,bh=e.boss?9:5;
+   ctx.fillStyle='#090d16CC';ctx.fillRect(e.x-bw/2,e.y-e.r-15,bw,bh);
+   const hpRatio=Math.max(0,e.hp/e.maxHp);
+   const hg=ctx.createLinearGradient(e.x-bw/2,0,e.x+bw/2,0);
+   hg.addColorStop(0,e.boss?'#ff5577':'#ff7185');hg.addColorStop(1,e.boss?'#ffd166':'#7cf29a');
+   ctx.fillStyle=hg;ctx.fillRect(e.x-bw/2,e.y-e.r-15,bw*hpRatio,bh);
+ }
+
+ // Player with glow, ring and direction indicator
+ if(player){
+   ctx.save();ctx.translate(player.x,player.y);
+   const a=Math.atan2(mouse.y-player.y,mouse.x-player.x);ctx.rotate(a);
+   ctx.globalAlpha=player.stealth>0?.45:1;
+   ctx.shadowBlur=26;ctx.shadowColor=player.shield>0?'#7fe6ff':'#dce9ff';
+   const pg=ctx.createRadialGradient(-5,-5,2,0,0,player.r);
+   pg.addColorStop(0,'#ffffff');pg.addColorStop(.45,player.shield>0?'#9cecff':'#d9e5f5');pg.addColorStop(1,'#7385a4');
+   ctx.fillStyle=pg;ctx.beginPath();ctx.arc(0,0,player.r,0,Math.PI*2);ctx.fill();
+   ctx.shadowBlur=0;ctx.fillStyle='#1b2941';ctx.fillRect(4,-5,20,10);ctx.fillStyle='#7fe6ff';ctx.fillRect(18,-3,10,6);
+   ctx.restore();
+
+   ctx.save();ctx.strokeStyle=player.shield>0?'#8be9ff':'#8ca5ca55';ctx.lineWidth=2;
+   ctx.beginPath();ctx.arc(player.x,player.y,player.r+7+Math.sin(t*3)*1.5,0,Math.PI*2);ctx.stroke();
+   if(player.shield>0){ctx.shadowBlur=20;ctx.shadowColor='#8be9ff';ctx.strokeStyle='#8be9ff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(player.x,player.y,26,0,Math.PI*2);ctx.stroke()}
+   ctx.restore();
+ }
+
+ // Particles
+ for(const p of particles){
+   ctx.globalAlpha=clamp(p.life/(p.max||p.life),0,1);
+   ctx.fillStyle=p.color;ctx.shadowBlur=8;ctx.shadowColor=p.color;
+   ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+ }
+ ctx.globalAlpha=1;ctx.shadowBlur=0;
+
+ // Vignette
+ const vg=ctx.createRadialGradient(W*.5,H*.48,Math.min(W,H)*.25,W*.5,H*.48,Math.max(W,H)*.72);
+ vg.addColorStop(0,'#00000000');vg.addColorStop(.72,'#00000018');vg.addColorStop(1,'#000000AA');
+ ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+
+ ctx.fillStyle='#dce8ffCC';ctx.font='700 12px system-ui';
+ ctx.fillText('Độ khó x'+difficulty().toFixed(2),12,H-12);
 }
 function loop(t){const dt=Math.min(.033,(t-last)/1000);last=t;update(dt);draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
 function openModal(html){paused=true;ui.panel.innerHTML=html;ui.modal.style.display='flex'}
@@ -556,7 +698,7 @@ function adminCommandV2(raw){
  adminLog('Unknown command: '+clean,false);
 }
 
-window.RK={close:closeModal,gems:gemstoneMenu,titles:titleMenu,equipTitle(n){if(save.unlockedTitles.includes(n)){save.title=n;persist();titleMenu();}},startFinal:startFinal,retry(){closeModal();buildRoom()},buy(ownedKey,equipKey,id,cost){if(save[ownedKey].includes(id)){save[equipKey]=id;persist();buildRoom();shop();return}if(save.coins<cost){toast('Không đủ xu LOL');return}save.coins-=cost;save[ownedKey].push(id);save[equipKey]=id;persist();buildRoom();shop()},raceBuy(id){
+window.RK={close:closeModal,startFinal:startFinal,retry(){closeModal();buildRoom()},buy(ownedKey,equipKey,id,cost){if(save[ownedKey].includes(id)){save[equipKey]=id;persist();buildRoom();shop();return}if(save.coins<cost){toast('Không đủ xu LOL');return}save.coins-=cost;save[ownedKey].push(id);save[equipKey]=id;persist();buildRoom();shop()},raceBuy(id){
   const r=races[id];
   if(id==='master'){toast('Master of the World không thể mua bằng xu LOL.');return}
   if(!save.ownedRaces)save.ownedRaces=['human'];
@@ -566,9 +708,9 @@ window.RK={close:closeModal,gems:gemstoneMenu,titles:titleMenu,equipTitle(n){if(
   save.coins-=cost;save.ownedRaces.push(id);save.race=id;persist();buildRoom();raceMenu();
 },
 classBuy(id,cost){if(save.ownedClasses.includes(id)){save.cls=id;persist();buildRoom();classMenu();return}if(save.coins<cost){toast('Không đủ xu LOL');return}save.coins-=cost;save.ownedClasses.push(id);save.cls=id;persist();buildRoom();classMenu()}};
-addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyQ')dash();if(e.code==='KeyE')useSkill();if(e.code==='KeyB'&&!ui.start.offsetParent)shop();if(e.code==='KeyC'&&!ui.start.offsetParent)classMenu();if(e.code==='KeyG'&&!ui.start.offsetParent)gemstoneMenu();if(e.code==='F2'&&!ui.start.offsetParent)adminMenu();if(e.code==='Escape'&&ui.modal.style.display==='flex')closeModal()});addEventListener('keyup',e=>keys[e.code]=false);
+addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyQ')dash();if(e.code==='KeyE')useSkill();if(e.code==='KeyB'&&!ui.start.offsetParent)shop();if(e.code==='KeyC'&&!ui.start.offsetParent)classMenu();if(e.code==='F2'&&!ui.start.offsetParent)adminMenu();if(e.code==='Escape'&&ui.modal.style.display==='flex')closeModal()});addEventListener('keyup',e=>keys[e.code]=false);
 canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});canvas.addEventListener('mousedown',()=>mouse.down=true);addEventListener('mouseup',()=>mouse.down=false);canvas.addEventListener('contextmenu',e=>e.preventDefault());
-$('shopBtn').onclick=shop;$('classBtn').onclick=classMenu;$('raceBtn').onclick=raceMenu;$('gemBtn').onclick=gemstoneMenu;$('titleBtn').onclick=titleMenu;$('lobbyBtn').onclick=lobby;$('adminBtn').onclick=adminMenu;$('equipBtn').onclick=equipMenu;$('saveBtn').onclick=persist;$('restartBtn').onclick=()=>{if(running)buildRoom()};
+$('shopBtn').onclick=shop;$('classBtn').onclick=classMenu;$('raceBtn').onclick=raceMenu;$('lobbyBtn').onclick=lobby;$('adminBtn').onclick=adminMenu;$('equipBtn').onclick=equipMenu;$('saveBtn').onclick=persist;$('restartBtn').onclick=()=>{if(running)buildRoom()};
 
   // Mobile touch controls
   const joy=document.getElementById('joy'),knob=document.getElementById('knob'),fireBtn=document.getElementById('fireBtn'),dashBtn=document.getElementById('dashBtn'),skillBtn=document.getElementById('skillBtn');
@@ -586,8 +728,8 @@ $('shopBtn').onclick=shop;$('classBtn').onclick=classMenu;$('raceBtn').onclick=r
   canvas.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0],r=canvas.getBoundingClientRect();mouse.x=t.clientX-r.left;mouse.y=t.clientY-r.top},{passive:false});
   canvas.addEventListener('touchmove',e=>{e.preventDefault();const t=e.touches[0],r=canvas.getBoundingClientRect();mouse.x=t.clientX-r.left;mouse.y=t.clientY-r.top},{passive:false});
 
-  $('helpBtn').onclick=()=>openModal(`<h2>🎮 Cách chơi</h2><p class="sub">WASD di chuyển, chuột để ngắm, giữ click trái để bắn. Q lướt né đạn, E dùng kỹ năng class. B mở shop, C chọn class, G mở Đá quý & Nhiệm vụ ẩn. Dọn sạch quái để tự sang phó bản tiếp theo.</p><p class="sub">Mỗi phòng có 30 phó bản. Phó bản 5, 10, 15, 20, 25 và 30 là boss. Phó bản thường có 2 phút; phó bản boss có 4 phút 30 giây. Tổng cộng 300 phòng = 9.000 phó bản. Level tối đa 1,000,000,000, EXP yêu cầu tăng theo cấp số nhân.</p><button onclick="RK.close()">Đã hiểu</button>`);
-$('newBtn').onclick=()=>{if(confirm('Chơi mới sẽ ghi đè tiến trình hiện tại. Tiếp tục?')){localStorage.removeItem('rk500_save');save={room:1,stage:1,level:1,xp:0,coins:400,cls:'rookie',race:'human',weapon:'pulse',armor:'none',helmet:'none',pants:'none',boots:'none',util:'none',ownedClasses:['rookie'],ownedWeapons:['pulse'],ownedArmors:['none'],ownedHelmets:['none'],ownedPants:['none'],ownedBoots:['none'],ownedUtils:['none'],gems:[],questStats:{kills:0,bosses:0,perfectStages:0},hiddenQuestClaimed:[],unlockedTitles:[],title:'Tân Binh Săn Quái'};persist();ui.start.style.display='none';running=true;paused=false;buildRoom();}};
+  $('helpBtn').onclick=()=>openModal(`<h2>🎮 Cách chơi</h2><p class="sub">WASD di chuyển, chuột để ngắm, giữ click trái để bắn. Q lướt né đạn, E dùng kỹ năng class. B mở shop, C chọn class. Dọn sạch quái để tự sang phó bản tiếp theo.</p><p class="sub">Mỗi phòng có 10 phó bản. Phó bản 5 và 10 có boss. Tổng cộng 300 phòng = 9.000 phó bản. Level tối đa 1,000,000,000, EXP yêu cầu tăng theo cấp số nhân.</p><button onclick="RK.close()">Đã hiểu</button>`);
+$('newBtn').onclick=()=>{if(confirm('Chơi mới sẽ ghi đè tiến trình hiện tại. Tiếp tục?')){localStorage.removeItem('rk500_save');save={room:1,stage:1,level:1,xp:0,coins:400,cls:'rookie',race:'human',weapon:'pulse',armor:'none',helmet:'none',pants:'none',boots:'none',util:'none',ownedClasses:['rookie'],ownedWeapons:['pulse'],ownedArmors:['none'],ownedHelmets:['none'],ownedPants:['none'],ownedBoots:['none'],ownedUtils:['none']};persist();ui.start.style.display='none';running=true;paused=false;buildRoom();}};
 $('continueBtn').onclick=()=>{load();ui.start.style.display='none';running=true;paused=false;buildRoom();};
 initAccounts();
 $('loginTab').onclick=()=>switchRegister(false);$('regTab').onclick=()=>switchRegister(true);$('accountSubmit').onclick=loginUser;
@@ -612,5 +754,243 @@ load();updateUI();showLogin();
   canvas.addEventListener('touchstart',e=>e.preventDefault(),{passive:false});
 })();
 </script>
+
+<script>
+(() => {
+  const base = document.getElementById('c');
+  const fx = document.getElementById('fxOverlay');
+  if(!base || !fx) return;
+  const fctx = fx.getContext('2d');
+
+  function resizeFX(){
+    const r = base.getBoundingClientRect();
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    fx.width = Math.max(1, Math.floor(r.width*d));
+    fx.height = Math.max(1, Math.floor(r.height*d));
+    fctx.setTransform(d,0,0,d,0,0);
+  }
+  window.addEventListener('resize', resizeFX);
+  resizeFX();
+
+  let t=0;
+  function frame(){
+    t += .016;
+    const w=base.clientWidth, h=base.clientHeight;
+    if(!w || !h){requestAnimationFrame(frame);return;}
+    fctx.clearRect(0,0,w,h);
+
+    // soft vignette
+    const v=fctx.createRadialGradient(w*.5,h*.46,Math.min(w,h)*.18,w*.5,h*.46,Math.max(w,h)*.72);
+    v.addColorStop(0,'rgba(0,0,0,0)');
+    v.addColorStop(.72,'rgba(0,0,0,.035)');
+    v.addColorStop(1,'rgba(0,0,0,.42)');
+    fctx.fillStyle=v; fctx.fillRect(0,0,w,h);
+
+    // animated top atmospheric glow
+    const pulse=.5+.5*Math.sin(t*.8);
+    const g=fctx.createRadialGradient(w*.5,0,0,w*.5,0,Math.min(w,h)*.65);
+    g.addColorStop(0,`rgba(70,180,255,${.055+.025*pulse})`);
+    g.addColorStop(1,'rgba(70,180,255,0)');
+    fctx.fillStyle=g; fctx.fillRect(0,0,w,h*.72);
+
+    // subtle scanlines
+    fctx.globalAlpha=.045;
+    fctx.fillStyle='#d9f3ff';
+    for(let y=0;y<h;y+=4) fctx.fillRect(0,y,w,1);
+    fctx.globalAlpha=1;
+
+    // corner brackets
+    fctx.strokeStyle='rgba(130,210,255,.28)';
+    fctx.lineWidth=1.5;
+    const s=24, m=14;
+    fctx.beginPath();
+    fctx.moveTo(m+s,m);fctx.lineTo(m,m);fctx.lineTo(m,m+s);
+    fctx.moveTo(w-m-s,m);fctx.lineTo(w-m,m);fctx.lineTo(w-m,m+s);
+    fctx.moveTo(m,h-m-s);fctx.lineTo(m,h-m);fctx.lineTo(m+s,h-m);
+    fctx.moveTo(w-m-s,h-m);fctx.lineTo(w-m,h-m);fctx.lineTo(w-m,h-m-s);
+    fctx.stroke();
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
+
+<script id="max-graphics-js">
+(() => {
+  const game = document.getElementById('c');
+  const light = document.getElementById('maxLight');
+  const weather = document.getElementById('maxWeather');
+  if(!game || !light || !weather) return;
+
+  const lc=light.getContext('2d');
+  const wc=weather.getContext('2d');
+  let W=0,H=0,dpr=1,t=0;
+  const particles=[];
+  const sparks=[];
+  const rings=[];
+  const flashes=[];
+  let last=performance.now();
+
+  function resize(){
+    const r=game.getBoundingClientRect();
+    W=r.width; H=r.height; dpr=Math.min(devicePixelRatio||1,2);
+    for(const c of [light,weather]){
+      c.width=Math.max(1,Math.floor(W*dpr));
+      c.height=Math.max(1,Math.floor(H*dpr));
+      c.style.width=W+'px'; c.style.height=H+'px';
+      c.getContext('2d').setTransform(dpr,0,0,dpr,0,0);
+    }
+    if(!particles.length){
+      for(let i=0;i<120;i++) particles.push({
+        x:Math.random()*W,y:Math.random()*H,
+        s:.5+Math.random()*1.8,a:.12+Math.random()*.4,
+        vx:(Math.random()-.5)*.15,vy:.05+Math.random()*.25
+      });
+    }
+  }
+  addEventListener('resize',resize);
+  resize();
+
+  function isNight(){
+    // Use common game day/night variables when present, otherwise make a
+    // slow atmospheric cycle. This is visual-only and never changes gameplay.
+    try{
+      if(typeof window.isNight==='boolean') return window.isNight;
+      if(typeof night!=='undefined') return !!night;
+    }catch(e){}
+    return ((Math.floor(t/35)%2)===1);
+  }
+
+  function drawLight(){
+    lc.clearRect(0,0,W,H);
+    const night=isNight();
+
+    // Ambient sky illumination
+    const bg=lc.createLinearGradient(0,0,0,H);
+    if(night){
+      bg.addColorStop(0,'rgba(8,15,50,.24)');
+      bg.addColorStop(.55,'rgba(16,20,70,.10)');
+      bg.addColorStop(1,'rgba(0,0,0,.26)');
+    }else{
+      bg.addColorStop(0,'rgba(75,155,255,.10)');
+      bg.addColorStop(.6,'rgba(255,210,120,.035)');
+      bg.addColorStop(1,'rgba(0,0,0,.08)');
+    }
+    lc.fillStyle=bg; lc.fillRect(0,0,W,H);
+
+    // Moving moon/sun glow
+    const phase=(t%55)/55;
+    const sx=W*(.1+.8*phase), sy=H*(.16+.08*Math.sin(phase*Math.PI));
+    const rg=lc.createRadialGradient(sx,sy,0,sx,sy,Math.min(W,H)*.3);
+    rg.addColorStop(0,night?'rgba(145,175,255,.15)':'rgba(255,235,170,.16)');
+    rg.addColorStop(1,'rgba(0,0,0,0)');
+    lc.fillStyle=rg; lc.fillRect(0,0,W,H);
+
+    // Ground pools
+    for(let i=0;i<6;i++){
+      const x=W*(i/5)+Math.sin(t*.18+i)*35;
+      const y=H*.75+Math.sin(t*.31+i)*18;
+      const g=lc.createRadialGradient(x,y,0,x,y,110);
+      g.addColorStop(0,night?'rgba(60,130,255,.10)':'rgba(255,210,120,.07)');
+      g.addColorStop(1,'rgba(0,0,0,0)');
+      lc.fillStyle=g; lc.fillRect(x-130,y-130,260,260);
+    }
+  }
+
+  function drawWeather(dt){
+    wc.clearRect(0,0,W,H);
+    const night=isNight();
+
+    // Ambient dust
+    for(const p of particles){
+      p.x+=p.vx*dt; p.y+=p.vy*dt;
+      if(p.y>H+5){p.y=-5;p.x=Math.random()*W}
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      wc.globalAlpha=p.a*(night?1.15:.65);
+      wc.fillStyle=night?'#b9d8ff':'#e8f2ff';
+      wc.beginPath();wc.arc(p.x,p.y,p.s,0,Math.PI*2);wc.fill();
+    }
+
+    // Occasional rain: visual only
+    const rain=((Math.floor(t/22)%5)===2);
+    if(rain){
+      wc.strokeStyle='rgba(150,205,255,.18)';
+      wc.lineWidth=1;
+      for(let i=0;i<55;i++){
+        const x=(i*83+t*180)%W;
+        const y=(i*47+t*420)%H;
+        wc.beginPath();wc.moveTo(x,y);wc.lineTo(x-5,y+15);wc.stroke();
+      }
+    }
+
+    // Soft fog near the floor
+    const fog=wc.createLinearGradient(0,H*.58,0,H);
+    fog.addColorStop(0,'rgba(90,150,210,0)');
+    fog.addColorStop(.8,night?'rgba(90,120,180,.045)':'rgba(255,235,190,.025)');
+    fog.addColorStop(1,'rgba(20,30,55,.12)');
+    wc.fillStyle=fog;wc.fillRect(0,H*.5,W,H*.5);
+
+    wc.globalAlpha=1;
+  }
+
+  function drawImpactFX(){
+    // Hooks into pointer/keyboard activity without altering game mechanics.
+    // Short-lived visual pulses make actions feel more responsive.
+    while(sparks.length && sparks[0].life<=0) sparks.shift();
+    while(rings.length && rings[0].life<=0) rings.shift();
+    while(flashes.length && flashes[0].life<=0) flashes.shift();
+
+    for(const r of rings){
+      r.life-=.035;
+      lc.globalAlpha=Math.max(0,r.life);
+      lc.strokeStyle='rgba(100,205,255,.72)';
+      lc.lineWidth=2;
+      lc.beginPath();lc.arc(r.x,r.y,r.r+(1-r.life)*28,0,Math.PI*2);lc.stroke();
+    }
+    for(const s of sparks){
+      s.life-=.045;
+      lc.globalAlpha=Math.max(0,s.life);
+      lc.strokeStyle='rgba(185,225,255,.8)';
+      lc.lineWidth=1.5;
+      lc.beginPath();lc.moveTo(s.x,s.y);
+      lc.lineTo(s.x-s.vx*10,s.y-s.vy*10);lc.stroke();
+      s.x+=s.vx;s.y+=s.vy;
+    }
+    for(const f of flashes){
+      f.life-=.08;
+      lc.globalAlpha=Math.max(0,f.life);
+      const g=lc.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r);
+      g.addColorStop(0,'rgba(230,245,255,.24)');
+      g.addColorStop(1,'rgba(80,170,255,0)');
+      lc.fillStyle=g;lc.fillRect(f.x-f.r,f.y-f.r,f.r*2,f.r*2);
+    }
+    lc.globalAlpha=1;
+  }
+
+  // Screen-space interaction FX: no gameplay state is changed.
+  addEventListener('click',e=>{
+    const r=game.getBoundingClientRect();
+    const x=e.clientX-r.left,y=e.clientY-r.top;
+    rings.push({x,y,r:8,life:1});
+    flashes.push({x,y,r:40,life:.65});
+    for(let i=0;i<7;i++){
+      const a=Math.random()*Math.PI*2,v=1+Math.random()*2.8;
+      sparks.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.65});
+    }
+  });
+
+  function frame(now){
+    const dt=Math.min(32,now-last); last=now; t+=dt/1000;
+    drawLight();
+    drawWeather(dt/16);
+    drawImpactFX();
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
 </body>
 </html>
